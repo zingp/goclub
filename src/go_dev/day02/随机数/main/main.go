@@ -6,8 +6,9 @@ import (
 	"time"
 )
 
-/*随机数、抽奖、验证码、负载均衡*/
+/*随机数、抽奖、验证码、负载均衡【随机或者轮询】*/
 func main()  {
+	//种子，否则每次生成的随机数会是一样的，可以放在init函数中。
 	rand.Seed(time.Now().UnixNano())
 
 	for i := 0; i < 10; i++ {

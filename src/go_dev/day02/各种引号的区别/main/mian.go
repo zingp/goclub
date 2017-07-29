@@ -11,19 +11,18 @@ import (
 func main()  {
 
 	var cha  byte = 'b'
-	var c = 'a'
 	var str  string = `落霞与孤鹜齐飞，\n秋水共长天一色`
 	var strDouble  string = "落霞与孤鹜齐飞，\n秋水共长天一色"
 
-	fmt.Println(cha)
-	fmt.Println(c)
+	fmt.Println(cha)  //本质上是ASCII码数字
+	fmt.Printf("cha=%c\n", cha)  // 通过格式化输出
 	fmt.Println(str)
 	fmt.Println(strDouble)
 }
 
 /*
-代码运行结果：
 98
+cha=b
 落霞与孤鹜齐飞，\n秋水共长天一色
 落霞与孤鹜齐飞，
 秋水共长天一色

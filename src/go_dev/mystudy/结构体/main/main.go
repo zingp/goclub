@@ -12,7 +12,7 @@ type Point struct {
 func main() {
 	v := Point{2,3}  //赋值
 	fmt.Println(v)
-	v.x = 6     //结构体中的成员赋值
+	v.x = 6           //结构体中的成员赋值
 	fmt.Println(v)
 
 	p := &v

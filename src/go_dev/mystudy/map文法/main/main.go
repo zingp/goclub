@@ -19,7 +19,6 @@ func main() {
 		"age":"25",
 		"sex":"male",
 	}
-
 	fmt.Println(m)
 
 	person := map[int]PersonInfo{
@@ -34,7 +33,6 @@ func main() {
 			Sex:"male",
 		},
 	}
-
 	fmt.Println(person)
 }
 /*

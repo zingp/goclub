@@ -29,6 +29,5 @@ func main() {
 
 	a = 10
 	fmt.Println(a)
-
 	fmt.Println(test(1,2))
 }

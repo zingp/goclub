@@ -38,6 +38,4 @@ func modStr(){
 func main() {
 	copySlice()
 	modStr()
-
-
 }

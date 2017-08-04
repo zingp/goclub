@@ -10,7 +10,7 @@ import (
 func main() {
 	fmt.Println("输入一个字符串：")
 	var inputReader *bufio.Reader
-	inputReader = bufio.NewReader(os.Stdin)   //如果用scanln获取不到空格
+	inputReader = bufio.NewReader(os.Stdin)      //如果用Scanln获取不到空格
 	s,err := inputReader.ReadString('\n')    //获取键盘输入，包括空格
 	if err != nil {
 		fmt.Printf("error: %s",err)

@@ -13,6 +13,7 @@ func isHW(s string) bool {
 	for i:=0;i<len(s);i++ {
 		result = append(result, li[len(s)-i -1])
 	}
+	// 将反转后的slice转换成string再和原来的s对比
 	if string(result) == s {
 		return true
 	}

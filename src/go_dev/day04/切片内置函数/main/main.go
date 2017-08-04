@@ -1,17 +1,10 @@
-<<<<<<< HEAD
-package main
-=======
->>>>>>> d0eb83625da3c105d05435de457d518025537bfe
-/*
-切片的拷贝
+/*切片的拷贝
 string 底层就是一个byte数组，因此也可以进行切片操作
 string 不可变;底层就是ptr;len
 改变string中的值
 */
-<<<<<<< HEAD
-=======
+
 package main
->>>>>>> d0eb83625da3c105d05435de457d518025537bfe
 
 import "fmt"
 
@@ -40,20 +33,10 @@ func modStr(){
 	s2[1] = 'E'
 	s3 := string(s2)
 	fmt.Println("s3=", s3)
-<<<<<<< HEAD
 
 }
 func main() {
 	copySlice()
 	modStr()
-
-
-=======
 }
 
-
-func main() {
-	copySlice()
-	modStr()
->>>>>>> d0eb83625da3c105d05435de457d518025537bfe
-}

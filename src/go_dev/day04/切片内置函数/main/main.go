@@ -1,11 +1,9 @@
-/*
-切片的拷贝
+package main
+/*切片的拷贝
 string 底层就是一个byte数组，因此也可以进行切片操作
 string 不可变;底层就是ptr;len
 改变string中的值
 */
-package main
-
 import "fmt"
 
 func copySlice() {
@@ -34,7 +32,6 @@ func modStr(){
 	s3 := string(s2)
 	fmt.Println("s3=", s3)
 }
-
 
 func main() {
 	copySlice()

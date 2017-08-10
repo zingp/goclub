@@ -10,7 +10,7 @@ func main() {
 	m["003"] = "zing-p"
 	fmt.Println(m)
 
-	delete(m, "002")
+	delete(m, "002")     // map的删除
 	fmt.Println(m)
 
 	ele := m["003"]

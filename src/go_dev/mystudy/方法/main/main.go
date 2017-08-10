@@ -1,25 +1,14 @@
-<<<<<<< HEAD
-=======
+package main
 /*
 Go 没有类。然而，仍然可以在结构体类型上定义方法。
 方法接收者 出现在 func 关键字和方法名之间的参数中。
 */
->>>>>>> d0eb83625da3c105d05435de457d518025537bfe
-package main
 
 import (
 	"math"
 	"fmt"
 )
 
-<<<<<<< HEAD
-/*
-Go 没有类。然而，仍然可以在结构体类型上定义方法。
-方法接收者 出现在 func 关键字和方法名之间的参数中。这里有点看不懂了。
-*/
-
-=======
->>>>>>> d0eb83625da3c105d05435de457d518025537bfe
 type Vertex struct {
 	X,Y float64
 }
@@ -28,11 +17,6 @@ func (v *Vertex) Abs() float64{
 	return math.Sqrt(v.X * v.X + v.Y * v.Y)
 }
 
-<<<<<<< HEAD
-func main() {
-	v := &Vertex{3,4}
-	fmt.Println(v.Abs())
-=======
 type Person struct {
 	Name, Country string
 	Age int
@@ -48,5 +32,4 @@ func main() {
 
 	p := Person{"lyy", "zh_CN", 25}
 	p.tell()
->>>>>>> d0eb83625da3c105d05435de457d518025537bfe
 }

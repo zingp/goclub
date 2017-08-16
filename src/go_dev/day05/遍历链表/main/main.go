@@ -32,6 +32,28 @@ func insertTail(p *Student) {
 	}
 }
 
+
+//头插法:要改变指针变量的值，需要传指针变量的指针进去
+func insertHead(p **Student) {
+     for i:=0; i<10; i++ {
+		 stu := Student{
+			 Name: fmt.Sprintf("stu%d", i),
+			 Age: rand.Intn(100),
+		 }
+		 stu.next = *p
+		 *p = &stu
+	 }
+}
+
+func insertHeadTest() {
+	var head *Student = new(Student)
+	head.Name = "lyy"
+	head.Age = 25
+
+	insertHead(&head)
+	traversal(head)
+}
+
 func main() {
 	var stu1 = Student{
 		Name:"lyy",
@@ -45,4 +67,6 @@ func main() {
 
 	insertTail(&stu2)
 	traversal(&stu1)
+
+	insertHeadTest()
 }

@@ -1,6 +1,8 @@
 package main
 
 import "fmt"
+// make用来创建map/slice/channel
+// new用来创建值类型
 
 func test() {
 	s1 := new([]int)  //slice,返回指针

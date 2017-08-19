@@ -48,3 +48,8 @@ func main() {
 	fmt.Printf(" json stu02:%s\n",data02)
 
 }
+/*
+运行结果：
+json stu01:{"Name":"zing-p","Age":23,"Score":80}
+json stu02:{"name":"liuYY","age":25,"score":90}
+*/

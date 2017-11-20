@@ -16,7 +16,7 @@ func main() {
 
 	fmt.Println(stu)
 	fmt.Printf("%p\n",&stu.Name)    //占10个字节
-	fmt.Printf("%p\n",&stu.Age)     //占4个自己
+	fmt.Printf("%p\n",&stu.Age)     //占4个字节
 	fmt.Printf("%p\n", &stu.score)
 	//另一种初始化方法:
 	var stu1 *Student = &Student{

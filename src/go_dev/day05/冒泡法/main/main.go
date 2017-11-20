@@ -17,6 +17,7 @@ func bubble(a []int) {
 			}
 		}
 
+
 		if !status {
 			return
 		}

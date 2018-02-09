@@ -1,0 +1,12 @@
+[2017-12-28 15:53:25] [Sogou-Observer,db=1,redis=1,Owner=OP].ERROR:xxxxxx
+[2017-12-28 15:53:26] [Sogou-Observer,db=1,redis=0,Owner=OP].ERROR:xxxxxx
+[2017-12-28 15:53:27] [Sogou-Observer,db=1,redis=0,Owner=OP].ERROR:xxxxxx
+[2017-12-28 15:53:28] [Sogou-Observer,db=1,redis=0,Owner=OP].ERROR:xxxxxx
+[2017-12-28 15:52:29] [Sogou-Observer,db=1,redis=3,Owner=OP].ERROR:xxxxxx
+[2017-12-28 15:53:25] [Sogou-Observer,db=1,redis=0,Owner=OP].ERROR:xxxxxx
+[2017-12-28 15:53:25] [Sogou-Observer,db=1,redis=0,Owner=OP].ERROR:xxxxxx
+[2017-12-28 15:53:25] [Sogou-Observer,db=1,redis=6,Owner=OP].ERROR:xxxxxx
+[2017-12-28 15:53:25] [Sogou-Observer,db=1,redis=0,Owner=OP].ERROR:xxxxxx
+[2017-12-28 15:53:25] [Sogou-Observer,db=1,redis=0,Owner=OP].ERROR:xxxxxx
+[2017-12-28 15:53:25] [Sogou-Observer,db=1,redis=7,Owner=OP].ERROR:xxxxxx
+

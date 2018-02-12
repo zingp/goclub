@@ -11,33 +11,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="statmentAndInit.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/go_dev/s2_array/statmentAndInit/statmentAndInit.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="15" column="33" lean-forward="true" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="statInit.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/go_dev/s3_slice/statInit/statInit.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="488">
-              <caret line="68" column="33" lean-forward="true" selection-start-line="68" selection-start-column="33" selection-end-line="68" selection-end-column="33" />
-              <folding>
-                <element signature="e#18#30#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.go" pinned="false" current-in-tab="true">
+      <file leaf-file-name="main.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/go_dev/s3_slice/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="22" column="33" lean-forward="true" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
+            <state relative-caret-position="400">
+              <caret line="25" column="26" lean-forward="false" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
               <folding>
                 <element signature="e#14#80#0" expanded="true" />
               </folding>
@@ -45,11 +23,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="useSlice.go" pinned="false" current-in-tab="false">
+      <file leaf-file-name="useSlice.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/go_dev/s3_slice/useSlice/useSlice.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="12" column="22" lean-forward="true" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
+            <state relative-caret-position="312">
+              <caret line="58" column="6" lean-forward="true" selection-start-line="58" selection-start-column="6" selection-end-line="58" selection-end-column="6" />
               <folding>
                 <element signature="e#18#30#0" expanded="true" />
               </folding>
@@ -78,8 +56,8 @@
         <option value="$PROJECT_DIR$/go_dev/s2_array/multiArray/multiArray.go" />
         <option value="$PROJECT_DIR$/go_dev/s2_array/funcTransArray/funcTransArray.go" />
         <option value="$PROJECT_DIR$/go_dev/s3_slice/statInit/statInit.go" />
-        <option value="$PROJECT_DIR$/go_dev/s3_slice/useSlice/useSlice.go" />
         <option value="$PROJECT_DIR$/go_dev/s3_slice/main.go" />
+        <option value="$PROJECT_DIR$/go_dev/s3_slice/useSlice/useSlice.go" />
       </list>
     </option>
   </component>
@@ -233,7 +211,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.46308017" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.46308017" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -482,14 +460,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/go_dev/s2_array/statmentAndInit/statmentAndInit.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="15" column="33" lean-forward="true" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/go_dev/s3_slice/statInit/statInit.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="488">
@@ -500,22 +470,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/go_dev/s3_slice/useSlice/useSlice.go">
+    <entry file="file://$PROJECT_DIR$/go_dev/s2_array/statmentAndInit/statmentAndInit.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="12" column="22" lean-forward="true" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
-          <folding>
-            <element signature="e#18#30#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="240">
+          <caret line="15" column="33" lean-forward="true" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/go_dev/s3_slice/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="22" column="33" lean-forward="true" selection-start-line="22" selection-start-column="33" selection-end-line="22" selection-end-column="33" />
+        <state relative-caret-position="400">
+          <caret line="25" column="26" lean-forward="false" selection-start-line="25" selection-start-column="26" selection-end-line="25" selection-end-column="26" />
           <folding>
             <element signature="e#14#80#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/go_dev/s3_slice/useSlice/useSlice.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="58" column="6" lean-forward="true" selection-start-line="58" selection-start-column="6" selection-end-line="58" selection-end-column="6" />
+          <folding>
+            <element signature="e#18#30#0" expanded="true" />
           </folding>
         </state>
       </provider>

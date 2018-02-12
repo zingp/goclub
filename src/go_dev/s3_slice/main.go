@@ -21,4 +21,7 @@ func main() {
 	// 切片的使用
 	// 赋值和切片
 	useSlice.AssignmentAndSlice()
+
+	// 切片的增长
+	useSlice.AppendSlice()
 }

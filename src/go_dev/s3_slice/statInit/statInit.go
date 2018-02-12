@@ -47,6 +47,8 @@ func WordStatSlice()  {
 	//只有不指定值的时候，才会创建切片
 }
 
+
+// 切片和数组不同
 func DiffArraySlice()  {
 	// 创建有 3 个元素的整型数组
 	array := [3]int{10, 20, 30}
@@ -55,5 +57,22 @@ func DiffArraySlice()  {
 
 	fmt.Println("数组", array)
 	fmt.Println("切片", slice)
+}
+
+// nil 和空切片
+func EmptySlice() {
+
+	// 创建 nil切片
+	// 只要在声明时不做任何初始化，就会创建一个 nil 切片
+	// 创建 nil 整型切片 长度0 容量0
+	var slice []int
+	fmt.Println("nil 切片:", slice)
+
+	// 声明空切片
+	emptySlice := make([]int, 0)
+	fmt.Println("空切片", emptySlice)
+
+	emptySlice2 := []int{}
+	fmt.Println("空切片2", emptySlice2)
 
 }

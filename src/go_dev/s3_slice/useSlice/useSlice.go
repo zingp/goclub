@@ -59,3 +59,54 @@ func AppendSlice() {
 	*/
 
 }
+
+// 创建切片时的 3 个索引
+func ThreeIndexBuildSlice() {
+	// 创建字符串切片
+	// 其长度和容量都是 5 个元素
+	source := []string{"Apple", "Orange", "Plum", "Banana", "Grape"}
+	// 将第三个元素切片，并限制容量
+	// 其长度为 1 个元素，容量为 2 个元素
+	fmt.Println(source)
+	slice := source[2:3:4]
+	fmt.Println("使用第三个限制容量：", slice)
+	// 如何计算长度和容量
+	// 对于 slice[i:j:k] 或 [2:3:4]长度: j – i 或 3 - 2 = 1
+	// 容量: k – i 或 4 - 2 = 2
+}
+
+func ThreeIndexSetLenEqBound() {
+	// 创建字符串切片
+	// 其长度和容量都是 5 个元素
+	source := []string{"Apple", "Orange", "Plum", "Banana", "Grape"}
+	// 对第三个元素做切片，并限制容量
+	// 其长度和容量都是 1 个元素
+	slice := source[2:3:3]
+	// 向 slice 追加新字符串
+	slice = append(slice, "Kiwi")
+	fmt.Println(source)
+	fmt.Println(slice)
+}
+
+
+// 将一个切片追加到另一个切片
+func SliAppendSli() {
+	slice1 := []int{1, 2, 3}
+	slice2 := []int{4, 5, 6}
+	//slice2 = append(slice1, slice2...)
+
+	//fmt.Println("追加切片之后的slice2", slice2)
+	fmt.Printf("slice2追加到slice1之后：%v\n", append(slice1, slice2...))
+}
+
+// 迭代切片
+func IterSlice()  {
+	// 创建一个整型切片
+	// 其长度和容量都是 4 个元素
+	slice := []int{10, 20, 30, 40}
+
+	for index, v := range slice {
+		fmt.Println(index, v)
+	}
+
+}

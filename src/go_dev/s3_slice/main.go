@@ -24,4 +24,16 @@ func main() {
 
 	// 切片的增长
 	useSlice.AppendSlice()
+
+	// 三个索引创建切片
+	useSlice.ThreeIndexBuildSlice()
+
+	// 三个索引控制新切片长度和容量一致
+	useSlice.ThreeIndexSetLenEqBound()
+
+	// 切片追加到切片
+	useSlice.SliAppendSli()
+
+	// 迭代切片
+	useSlice.IterSlice()
 }

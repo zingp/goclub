@@ -1,6 +1,8 @@
 package useSlice
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // 赋值和切片
 // 对切片里某个索引指向的元素赋值和对数组里某个索引指向的元素赋值的方法完全一样。
@@ -108,5 +110,28 @@ func IterSlice()  {
 	for index, v := range slice {
 		fmt.Println(index, v)
 	}
+}
 
+// range 提供了每个元素的副本
+func FactRange() {
+	slice := []int{10, 20, 30, 40}
+
+	for index, value := range slice {
+		fmt.Printf("Value:%d  -- Value addr:%X  -- Elem addr:%X\n",
+			value, &value, &slice[index])
+	}
+
+}
+/*
+因为迭代返回的变量是一个迭代过程中根据切片依次赋值的新变量，所以 value 的地址总
+是相同的。要想获取每个元素的地址，可以使用切片变量和索引值。
+*/
+
+// 使用传统的for遍历切片
+func ForSlice() {
+	slice := []string{"liu", "you", "yuan", "study", "go"}
+
+	for i:=0; i<len(slice); i++ {
+		fmt.Println(slice[i])
+	}
 }

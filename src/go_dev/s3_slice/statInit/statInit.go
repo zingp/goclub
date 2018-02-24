@@ -76,3 +76,11 @@ func EmptySlice() {
 	fmt.Println("空切片2", emptySlice2)
 
 }
+
+// 多维slice
+func MultiSlice() {
+	slice := [][]int{{10, 20}, {30, 40, 50}}
+	slice[0] = append(slice[0], 30)
+	fmt.Println("老多维切片", slice)
+	fmt.Println("新多维切片", slice[0])
+}

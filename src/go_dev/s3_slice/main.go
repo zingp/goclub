@@ -18,6 +18,9 @@ func main() {
 	// nil 和空切片
 	statInit.EmptySlice()
 
+	// 多维切片
+	statInit.MultiSlice()
+
 	// 切片的使用
 	// 赋值和切片
 	useSlice.AssignmentAndSlice()
@@ -36,4 +39,11 @@ func main() {
 
 	// 迭代切片
 	useSlice.IterSlice()
+
+	// range 提供了每个元素的副本
+	useSlice.FactRange()
+
+	// for 遍历slice
+	useSlice.ForSlice()
 }
+

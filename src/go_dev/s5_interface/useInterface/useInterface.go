@@ -3,20 +3,16 @@ package main
 import "fmt"
 
 // 这个示例程序展示 Go 语言里如何使用接口
-
-
-
-// notifier 是一个定义了
-// 通知类行为的接口
+// notifier 是一个定义了通知类行为的接口
 type notifier interface {
-notify()
+	notify()
 }
 
 // user 在程序里定义一个用户类型
 type user struct {
 	name string
 	email string
-	}
+}
 
 // notify 是使用指针接收者实现的方法
 func (u *user) notify() {
@@ -40,4 +36,4 @@ func main() {
 // 并发送通知
 func sendNotification(n notifier) {
 	 n.notify()
-	}
+}

@@ -28,5 +28,7 @@ func main() {
 	//二维数组
 	arr_mul.TwoArray()
 
+	minLen := 1 << 30
+	fmt.Println(minLen)
 
 }

@@ -28,7 +28,7 @@ func main() {
 
 // ./listing36.go:32: 不能将 u（类型是 user）作为
 // sendNotification 的参数类型 notifier：
- // user 类型并没有实现 notifier
+// user 类型并没有实现 notifier
 // （notify 方法使用指针接收者声明）
 }
 

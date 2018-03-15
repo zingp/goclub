@@ -9,8 +9,11 @@ import (
 	"strings"
 )
 
+/*
+执行shell命令
+*/
 
-func run_shell(s string) {
+func runShell(s string) {
 	cmd := exec.Command("/bin/bash", "-c", s)
 	var out bytes.Buffer
 
@@ -25,5 +28,5 @@ func run_shell(s string) {
 func main() {
 	cmd := strings.Join(os.Args[1:], " ")
 	fmt.Println("cmd>>>", cmd)
-	run_shell(cmd)
+	runShell(cmd)
 }

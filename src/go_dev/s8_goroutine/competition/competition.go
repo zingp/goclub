@@ -65,9 +65,9 @@ func incCounter(id int) {
 //值，而是继续使用这个副本的值，用这个值递增，并存回 num 变量，结果覆盖了另一个
 //goroutine 完成的工作。
 
+
 // 用原子函数锁住共享资源
 // 原子函数能够以很底层的加锁机制来同步访问整型变量和指针。
-
 func incNum(id int)  {
 	defer wg.Done()
 

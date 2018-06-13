@@ -26,6 +26,13 @@ func main() {
 	u := user{"Bill", "bill@email.com"}
 	sendNotification(&u)
 
+	p := people {
+		"LiuYouYuan",
+		26,
+		"male",
+	}
+	talkSelf(&p)
+
 // ./listing36.go:32: 不能将 u（类型是 user）作为
 // sendNotification 的参数类型 notifier：
 // user 类型并没有实现 notifier
@@ -36,4 +43,23 @@ func main() {
 // 并发送通知
 func sendNotification(n notifier) {
 	 n.notify()
+}
+
+
+type talker interface{
+	talk()
+}
+
+type people struct {
+	name string
+	age int
+	sex string
+}
+
+func (p *people) talk() {
+	fmt.Printf("My name is %s, I'm %v years olds.", p.name, p.age)
+}
+
+func talkSelf(t talker) {
+	t.talk()
 }

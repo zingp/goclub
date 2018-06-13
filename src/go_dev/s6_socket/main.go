@@ -22,10 +22,12 @@ func main() {
 		}
 		go process(conn)
 	}
+
 }
 
 func process(conn net.Conn)  {
 	defer conn.Close()
+
 	for {
 		buf := make([]byte, 512)
 		n, err := conn.Read(buf)

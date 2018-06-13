@@ -3,19 +3,16 @@ package main
 import "fmt"
 
 /* 交换两个变量的值的三种方法*/
-
-
-func change(a *int ,b *int)  {
+func change(a *int, b *int) {
 	temp := *a
 	*a = *b
 	*b = temp
 }
-
-func change2(a int, b int)(int, int) {
+func change2(a int, b int) (int, int) {
 	return b, a
 }
 
-func main()  {
+func main() {
 	first := 100
 	second := 200
 	/*方法一*/
@@ -29,5 +26,4 @@ func main()  {
 
 	fmt.Println("first=", first)
 	fmt.Println("second=", second)
-
 }

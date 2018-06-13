@@ -14,7 +14,7 @@ type PersonInfo struct{
 var m map[string]string
 
 func main() {
-	m = map[string]string{
+	m = map [string] string {
 		"name": "liuyouyuan",
 		"age":"25",
 		"sex":"male",
@@ -23,14 +23,14 @@ func main() {
 
 	person := map[int]PersonInfo{
 		1001: {
-			Name:"liuYouYuan",
-			Age:25,
-			Sex:"male",
+			Name: "liuYouYuan",
+			Age: 25,
+			Sex: "male",
 		},
-		1002:{
-			Name:"zing-p",
-			Age:26,
-			Sex:"male",
+		1002: {
+			Name: "zing-p",
+			Age: 26,
+			Sex: "male",
 		},
 	}
 	fmt.Println(person)

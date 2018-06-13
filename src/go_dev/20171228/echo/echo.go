@@ -16,9 +16,6 @@ func echo()  {
 	fmt.Println(s)
 }
 
-
-
-
 func main() {
 	echo()
 }

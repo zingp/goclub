@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	for i:=1;i<100;i++ {
+	for i:=1; i<100; i++ {
 		go fmt.Println(i)
 	}
 	// 让主进程等待gorotine结束

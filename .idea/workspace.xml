@@ -4,7 +4,9 @@
     <bookmark url="file://$PROJECT_DIR$/src/go_dev/day04/作业之回文数/main/main.go" line="24" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b818561a-697f-4be4-a232-f544dc45748c" name="Default" comment="" />
+    <list default="true" id="b818561a-697f-4be4-a232-f544dc45748c" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/src/go_dev/s11_reflect/stat/main.go" afterPath="$PROJECT_DIR$/src/go_dev/s11_reflect/stat/main.go" />
+    </list>
     <ignored path="$PROJECT_DIR$/.idea/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -52,31 +54,23 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="main.go" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/go_dev/s12_shell/readFormStdin/main.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="328">
+              <caret line="40" column="36" lean-forward="true" selection-start-line="40" selection-start-column="36" selection-end-line="40" selection-end-column="36" />
+              <folding>
+                <element signature="e#15#67#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="main.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/go_dev/s11_reflect/stat/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="347">
-              <caret line="28" column="14" lean-forward="true" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="value.go" pinned="false" current-in-tab="true">
-        <entry file="file://C:/Go/src/reflect/value.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-725">
-              <caret line="1031" column="26" lean-forward="true" selection-start-line="1031" selection-start-column="0" selection-end-line="1031" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="type.go" pinned="false" current-in-tab="false">
-        <entry file="file://C:/Go/src/reflect/type.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="1410" column="31" lean-forward="false" selection-start-line="1410" selection-start-column="0" selection-end-line="1410" selection-end-column="31" />
+            <state relative-caret-position="1178">
+              <caret line="95" column="19" lean-forward="false" selection-start-line="95" selection-start-column="19" selection-end-line="95" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -111,7 +105,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/go_dev/day02/格式化输出/main/main.go" />
         <option value="$PROJECT_DIR$/src/go_dev/day02/字符串操作切片反转等/main/main.go" />
         <option value="$PROJECT_DIR$/src/go_dev/day02/初始化函数/main/main.go" />
         <option value="$PROJECT_DIR$/src/go_dev/day03/素数/main/main.go" />
@@ -162,6 +155,7 @@
         <option value="$PROJECT_DIR$/src/go_dev/s6_socket/main.go" />
         <option value="$PROJECT_DIR$/src/go_dev/s9_shell/main.go" />
         <option value="$PROJECT_DIR$/src/go_dev/s11_reflect/stat/main.go" />
+        <option value="$PROJECT_DIR$/src/go_dev/s12_shell/readFormStdin/main.go" />
       </list>
     </option>
   </component>
@@ -252,6 +246,21 @@
               <item name="go_dev" type="462c0819:PsiDirectoryNode" />
               <item name="s11_reflect" type="462c0819:PsiDirectoryNode" />
               <item name="stat" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="goclub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="goclub" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="go_dev" type="462c0819:PsiDirectoryNode" />
+              <item name="s12_shell" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="goclub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="goclub" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="go_dev" type="462c0819:PsiDirectoryNode" />
+              <item name="s12_shell" type="462c0819:PsiDirectoryNode" />
+              <item name="readFormStdin" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -462,31 +471,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/go_dev/day02/字符串操作切片反转等/main/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="17" column="22" lean-forward="true" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/go18/src/fmt/scan.go" />
-    <entry file="file://$PROJECT_DIR$/src/go_dev/day04/作业之回文数/main/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="19" column="16" lean-forward="true" selection-start-line="19" selection-start-column="16" selection-end-line="19" selection-end-column="16" />
-          <folding>
-            <element signature="e#84#96#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/go_dev/day04/字典/main/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-86">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/go_dev/day04/切片内置函数/main/main.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="924">
@@ -782,6 +766,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://C:/Go/src/reflect/type.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="1410" column="31" lean-forward="false" selection-start-line="1410" selection-start-column="0" selection-end-line="1410" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/reflect/value.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="1089" column="5" lean-forward="true" selection-start-line="1089" selection-start-column="5" selection-end-line="1089" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/fmt/print.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="263" column="29" lean-forward="false" selection-start-line="263" selection-start-column="23" selection-end-line="263" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/bufio/bufio.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="32" column="22" lean-forward="false" selection-start-line="32" selection-start-column="22" selection-end-line="32" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Go/src/io/io.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="77" column="8" lean-forward="false" selection-start-line="77" selection-start-column="8" selection-end-line="77" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/go_dev/s11_reflect/stat/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1178">
+          <caret line="95" column="19" lean-forward="false" selection-start-line="95" selection-start-column="19" selection-end-line="95" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/go_dev/s5_interface/nullInterface/main.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
@@ -800,27 +832,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Go/src/reflect/type.go">
+    <entry file="file://$PROJECT_DIR$/src/go_dev/s12_shell/readFormStdin/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="1410" column="31" lean-forward="false" selection-start-line="1410" selection-start-column="0" selection-end-line="1410" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/go_dev/s11_reflect/stat/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="28" column="14" lean-forward="true" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://C:/Go/src/reflect/value.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-725">
-          <caret line="1031" column="26" lean-forward="true" selection-start-line="1031" selection-start-column="0" selection-end-line="1031" selection-end-column="26" />
-          <folding />
+        <state relative-caret-position="328">
+          <caret line="40" column="36" lean-forward="true" selection-start-line="40" selection-start-column="36" selection-end-line="40" selection-end-column="36" />
+          <folding>
+            <element signature="e#15#67#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

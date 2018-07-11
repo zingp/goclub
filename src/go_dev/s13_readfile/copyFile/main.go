@@ -27,5 +27,6 @@ func CopyFile(dstFile string, srcFile string)(writen int64, err error) {
 }
 
 func main(){
-	CopyFile("D:/goCopyLog.txt", "D:/goTestLog.txt")
+	n, _ := CopyFile("D:/goCopyLog.txt", "D:/goTestLog.txt")
+	fmt.Println(n)
 }

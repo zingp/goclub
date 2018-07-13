@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b818561a-697f-4be4-a232-f544dc45748c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/go_dev/s16_recover/recover/recover.go" afterPath="$PROJECT_DIR$/src/go_dev/s16_recover/recover/recover.go" />
-      <change beforePath="$PROJECT_DIR$/src/go_dev/s17_goroute/chanel2/main.go" afterPath="$PROJECT_DIR$/src/go_dev/s17_goroute/chanel2/main.go" />
-      <change beforePath="$PROJECT_DIR$/src/go_dev/s17_goroute/signal/main.exe" afterPath="" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/go_dev/s20_http/httpTemplate/index.html" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/.idea/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,21 +33,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="osArg.go" pinned="false" current-in-tab="false">
+      <file leaf-file-name="osArg.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/go_dev/s14_osArg/osArg/osArg.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="34" column="1" lean-forward="false" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="1" />
+            <state relative-caret-position="513">
+              <caret line="31" column="19" lean-forward="false" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main.go" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/go_dev/s17_goroute/signal/main.go">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/go_dev/s20_http/httpTemplate/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="54" column="20" lean-forward="true" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="20" />
+            <state relative-caret-position="114">
+              <caret line="6" column="6" lean-forward="true" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -60,6 +59,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Go File" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -83,8 +83,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/go_dev/day03/阶乘/main/main.go" />
-        <option value="$PROJECT_DIR$/src/go_dev/day03/水仙花数/main/main.go" />
         <option value="$PROJECT_DIR$/src/go_dev/day03/阶乘递归/main/main.go" />
         <option value="$PROJECT_DIR$/src/go_dev/day03/水仙花数2/main/main.go" />
         <option value="$PROJECT_DIR$/src/go_dev/day03/strings和strconv的使用/main/main.go" />
@@ -134,6 +132,8 @@
         <option value="$PROJECT_DIR$/src/go_dev/s12_shell/wordCount/main.go" />
         <option value="$PROJECT_DIR$/src/go_dev/s13_readfile/readFlie/main.go" />
         <option value="$PROJECT_DIR$/src/go_dev/s14_osArg/osArg/osArg.go" />
+        <option value="$PROJECT_DIR$/src/go_dev/s20_http/httpForm/form.html" />
+        <option value="$PROJECT_DIR$/src/go_dev/s20_http/httpTemplate/index.html" />
       </list>
     </option>
   </component>
@@ -215,8 +215,15 @@
               <item name="goclub" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="go_dev" type="462c0819:PsiDirectoryNode" />
-              <item name="s17_goroute" type="462c0819:PsiDirectoryNode" />
-              <item name="signal" type="462c0819:PsiDirectoryNode" />
+              <item name="s20_http" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="goclub" type="b2602c69:ProjectViewProjectNode" />
+              <item name="goclub" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="go_dev" type="462c0819:PsiDirectoryNode" />
+              <item name="s20_http" type="462c0819:PsiDirectoryNode" />
+              <item name="httpTemplate" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -234,6 +241,7 @@
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="configurable.Module.GOPATH.is.expanded" value="false" />
     <property name="go.vendoring.notification.had.been.shown" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -431,14 +439,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://D:/go18/src/regexp/regexp.go" />
-    <entry file="file://$PROJECT_DIR$/src/go_dev/day04/切片/main/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="924">
-          <caret line="54" column="1" lean-forward="true" selection-start-line="54" selection-start-column="1" selection-end-line="54" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/go_dev/day05/CPU_TEST/main/main.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="582">
@@ -802,18 +802,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/go_dev/s14_osArg/osArg/osArg.go">
+    <entry file="file://$PROJECT_DIR$/src/go_dev/s17_goroute/signal/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="34" column="1" lean-forward="false" selection-start-line="34" selection-start-column="1" selection-end-line="34" selection-end-column="1" />
+        <state relative-caret-position="396">
+          <caret line="54" column="20" lean-forward="false" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/go_dev/s17_goroute/signal/main.go">
+    <entry file="file://$PROJECT_DIR$/src/go_dev/s20_http/httpForm/form.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="54" column="20" lean-forward="true" selection-start-line="54" selection-start-column="20" selection-end-line="54" selection-end-column="20" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="13" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/go_dev/s20_http/httpTemplate/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="6" lean-forward="true" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/go_dev/s14_osArg/osArg/osArg.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="513">
+          <caret line="31" column="19" lean-forward="false" selection-start-line="31" selection-start-column="19" selection-end-line="31" selection-end-column="19" />
           <folding />
         </state>
       </provider>

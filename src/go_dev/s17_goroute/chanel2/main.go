@@ -41,6 +41,15 @@ func comsumer(s chan string) {
 	waitGroup.Done()
 }
 
+func testForRangeChan(){
+	// for range
+	// 关闭close(chanel)
+	// v, ok :=<- chan
+	// 只读
+	var ch <-chan string
+	// 只写
+	var ch2 chan<- int
+}
 var waitGroup sync.WaitGroup
 func main() {
 	// testChan()

@@ -3,7 +3,6 @@ package main
 import(
 	"github.com/jmoiron/sqlx"
 	_ "github.com/go-sql-driver/mysql"
-	// "database/sql"
 	"fmt"
 	"math/rand"
 	"time"
@@ -120,7 +119,7 @@ func eventDb(Db *sqlx.DB) {
 	}
 
 	_, err = Db.Exec("insert into user_info(name, sex, age, email) values(?,?,?,?)",
-	"nameYY", "male", 25.5, "666@sg.com")
+	"nameYY", "male", 25.5, "777@sg.com")
 	if err != nil {
 		conn.Rollback()    // 事务回滚
 		fmt.Println("insert2 error:", err)

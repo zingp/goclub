@@ -1,0 +1,188 @@
+package reconf
+
+// 实现一个解析配置文件的包
+import (
+	"time"
+	"io"
+	"fmt"
+	"os"
+	"bufio"
+	"strings"
+	"strconv"
+	"sync"
+)
+
+type Config struct{
+	filename string
+	data map[string]string
+	lastModifyTime int64
+	rwLock sync.RWMutex
+
+}
+
+func NewConfig(file string)(conf *Config, err error){
+	conf = &Config{
+		filename: file,
+		data: make(map[string]string, 1024),
+	}
+
+	m, err := conf.parse()
+	if err != nil {
+		fmt.Printf("parse conf error:%v\n", err)
+		return
+	}
+
+	// 写锁
+	conf.rwLock.Lock()
+	conf.data = m
+	conf.rwLock.Unlock()
+
+	// 启一个后台线程去检测配置文件是否更改
+	go conf.reload()
+	return
+}
+
+func (c *Config) reload(){
+	// 定时器
+	ticker := time.NewTicker(time.Second * 5) 
+	for _ = range ticker.C {
+		// 打开文件
+		// 为什么使用匿名函数？ 当匿名函数退出时可用defer去关闭文件
+		// 如果不用匿名函数，在循环中不好关闭文件，一不小心就内存泄露
+		func (){
+			f, err := os.Open(c.filename)
+			if err != nil {
+				fmt.Printf("open file error:%s\n", err)
+				return
+			}
+			defer f.Close()
+
+			fileInfo, err := f.Stat()
+			if err != nil {
+				fmt.Printf("stat file error:%s\n", err)
+				return
+			}
+			// 或取当前文件修改时间
+			curModifyTime := fileInfo.ModTime().Unix() 
+			if curModifyTime > c.lastModifyTime {
+				// 重新解析时，要考虑应用程序正在读取这个配置因此应该加锁
+				m, err := c.parse()
+				if err != nil {
+					fmt.Printf("parse config error:%v\n", err)
+					return
+				}
+
+				c.rwLock.Lock()
+				c.data = m
+				c.rwLock.Unlock()
+			}
+			c.lastModifyTime = curModifyTime
+
+		}()
+		
+
+	}
+}
+
+func (c *Config) parse() (m map[string]string, err error) {
+	// 如果在parse()中定义一个map，这样就是一个新的map不用加锁
+	m = make(map[string]string, 1024)
+
+	f, err := os.Open(c.filename)
+	if err != nil {
+		return
+	}
+	defer f.Close()
+
+	reader := bufio.NewReader(f)
+	var lineNo int
+	for {
+		line, errRet := reader.ReadString('\n')
+		if errRet == io.EOF {
+			break
+		}
+		if errRet != nil {
+			err = errRet
+			return
+		}
+		lineNo++
+
+		line = strings.TrimSpace(line)
+		if len(line) == 0 || line[0] =='\n' || line[0]=='#' || line[0]==';' {
+			continue
+		}
+
+		itemSlice := strings.Split(line, "=")
+		if len(itemSlice) == 0 {
+			fmt.Printf("invalid config, line:%d", lineNo)
+			continue
+		}
+
+		key := strings.TrimSpace(itemSlice[0])
+		if len(key) == 0 {
+			fmt.Printf("invalid config, line:%d", lineNo)
+			continue
+		}
+		if len(key) == 1 {
+			m[key] = ""
+			continue
+		}
+
+		value := strings.TrimSpace(itemSlice[1])
+		m[key] = value	
+	}
+
+	return 
+}
+
+
+func (c *Config) GetInt(key string)(value int, err error){
+	c.rwLock.RLock()
+	defer c.rwLock.RUnlock()
+
+	str, ok := c.data[key]
+	if !ok {
+		err = fmt.Errorf("key [%s] not found", key)
+	}
+	value, err = strconv.Atoi(str)
+	return
+}
+
+func (c *Config) GetIntDefault(key string, defaultInt int)(value int){
+	c.rwLock.RLock()
+	defer c.rwLock.RUnlock()
+
+	str, ok := c.data[key]
+	if !ok {
+		value = defaultInt
+		return
+	}
+	value, err := strconv.Atoi(str)
+	if err != nil {
+		value = defaultInt
+	}
+	return
+}
+
+func (c *Config) GetString(key string)(value string, err error){
+	c.rwLock.RLock()
+	defer c.rwLock.RUnlock()
+
+	value, ok := c.data[key]
+	if !ok {
+		err = fmt.Errorf("key [%s] not found", key)
+	}
+	return
+}
+
+func (c *Config) GetIStringDefault(key string, defaultStr string)(value string){
+	c.rwLock.RLock()
+	defer c.rwLock.RUnlock()
+
+	value, ok := c.data[key]
+	if !ok {
+		value = defaultStr
+		return
+	}
+	return
+}

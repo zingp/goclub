@@ -50,7 +50,6 @@ func testMutex2() {
 }
 
 
-
 func main() {
 	testMutex1()
 	fmt.Println("count::", count)

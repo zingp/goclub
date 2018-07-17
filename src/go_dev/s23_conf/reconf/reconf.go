@@ -17,7 +17,7 @@ type Config struct{
 	data map[string]string
 	lastModifyTime int64
 	rwLock sync.RWMutex
-
+	notifyList []Notifyer
 }
 
 func NewConfig(file string)(conf *Config, err error){
@@ -40,6 +40,11 @@ func NewConfig(file string)(conf *Config, err error){
 	// 启一个后台线程去检测配置文件是否更改
 	go conf.reload()
 	return
+}
+
+// 添加观察者
+func (c *Config) AddObserver(n Notifyer) {
+	c.notifyList = append(c.notifyList, n)
 }
 
 func (c *Config) reload(){
@@ -75,12 +80,15 @@ func (c *Config) reload(){
 				c.rwLock.Lock()
 				c.data = m
 				c.rwLock.Unlock()
+
+				c.lastModifyTime = curModifyTime
+
+				// 配置更新通知所有观察者
+				for _, n := range c.notifyList {
+					n.Callback(c)
+				}
 			}
-			c.lastModifyTime = curModifyTime
-
 		}()
-		
-
 	}
 }
 
@@ -99,40 +107,73 @@ func (c *Config) parse() (m map[string]string, err error) {
 	for {
 		line, errRet := reader.ReadString('\n')
 		if errRet == io.EOF {
+			// 这里有一个坑，最后一行如果不是\n结尾会漏读
+			lineParse(&lineNo, &line, &m)
 			break
 		}
 		if errRet != nil {
 			err = errRet
 			return
 		}
-		lineNo++
+		lineParse(&lineNo, &line, &m)
+		// lineNo++
 
-		line = strings.TrimSpace(line)
-		if len(line) == 0 || line[0] =='\n' || line[0]=='#' || line[0]==';' {
-			continue
+		// line = strings.TrimSpace(line)
+		// if len(line) == 0 || line[0] =='\n' || line[0]=='#' || line[0]==';' {
+		// 	continue
+		// }
+
+		// itemSlice := strings.Split(line, "=")
+		// if len(itemSlice) == 0 {
+		// 	fmt.Printf("invalid config, line:%d", lineNo)
+		// 	continue
+		// }
+
+		// key := strings.TrimSpace(itemSlice[0])
+		// if len(key) == 0 {
+		// 	fmt.Printf("invalid config, line:%d", lineNo)
+		// 	continue
+		// }
+		// if len(key) == 1 {
+		// 	m[key] = ""
+		// 	continue
+		// }
+
+		// value := strings.TrimSpace(itemSlice[1])
+		// m[key] = value	
+	}
+
+	return 
+}
+
+func lineParse(lineNo *int, line *string, m *map[string]string) {
+		*lineNo++
+
+		l := strings.TrimSpace(*line)
+		if len(l) == 0 || l[0] =='\n' || l[0]=='#' || l[0]==';' {
+			return
 		}
 
-		itemSlice := strings.Split(line, "=")
+		itemSlice := strings.Split(l, "=")
 		if len(itemSlice) == 0 {
 			fmt.Printf("invalid config, line:%d", lineNo)
-			continue
+			return
 		}
 
 		key := strings.TrimSpace(itemSlice[0])
 		if len(key) == 0 {
 			fmt.Printf("invalid config, line:%d", lineNo)
-			continue
+			return
 		}
 		if len(key) == 1 {
-			m[key] = ""
-			continue
+			(*m)[key] = ""
+			return
 		}
 
 		value := strings.TrimSpace(itemSlice[1])
-		m[key] = value	
-	}
+		(*m)[key] = value	
 
-	return 
+		return
 }
 
 

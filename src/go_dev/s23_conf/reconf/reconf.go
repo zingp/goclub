@@ -32,7 +32,7 @@ func NewConfig(file string)(conf *Config, err error){
 		return
 	}
 
-	// 写锁
+	// 将解析配置文件后的数据更新到结构体的map中，写锁
 	conf.rwLock.Lock()
 	conf.data = m
 	conf.rwLock.Unlock()
@@ -103,6 +103,7 @@ func (c *Config) parse() (m map[string]string, err error) {
 	defer f.Close()
 
 	reader := bufio.NewReader(f)
+	// 声明一个变量存放读取行数
 	var lineNo int
 	for {
 		line, errRet := reader.ReadString('\n')
@@ -115,32 +116,8 @@ func (c *Config) parse() (m map[string]string, err error) {
 			err = errRet
 			return
 		}
+		
 		lineParse(&lineNo, &line, &m)
-		// lineNo++
-
-		// line = strings.TrimSpace(line)
-		// if len(line) == 0 || line[0] =='\n' || line[0]=='#' || line[0]==';' {
-		// 	continue
-		// }
-
-		// itemSlice := strings.Split(line, "=")
-		// if len(itemSlice) == 0 {
-		// 	fmt.Printf("invalid config, line:%d", lineNo)
-		// 	continue
-		// }
-
-		// key := strings.TrimSpace(itemSlice[0])
-		// if len(key) == 0 {
-		// 	fmt.Printf("invalid config, line:%d", lineNo)
-		// 	continue
-		// }
-		// if len(key) == 1 {
-		// 	m[key] = ""
-		// 	continue
-		// }
-
-		// value := strings.TrimSpace(itemSlice[1])
-		// m[key] = value	
 	}
 
 	return 
@@ -150,11 +127,13 @@ func lineParse(lineNo *int, line *string, m *map[string]string) {
 		*lineNo++
 
 		l := strings.TrimSpace(*line)
+		// 如果空行 或者 是注释 跳过
 		if len(l) == 0 || l[0] =='\n' || l[0]=='#' || l[0]==';' {
 			return
 		}
 
 		itemSlice := strings.Split(l, "=")
+		// =
 		if len(itemSlice) == 0 {
 			fmt.Printf("invalid config, line:%d", lineNo)
 			return

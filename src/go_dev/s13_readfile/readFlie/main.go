@@ -68,6 +68,7 @@ func testIoutilReadFile(d string) {
 
 }
 
+
 func main() {
 	var dir string = "C:/Users/liuyouyuan/Desktop/笔记/部署文档/centos6下go语言环境搭建.txt"
 	//ReadFile(dir)

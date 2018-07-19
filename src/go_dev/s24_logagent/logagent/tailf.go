@@ -5,6 +5,7 @@ import(
 	"github.com/astaxie/beego/logs"
 	"fmt"
 	"sync"
+	"strings"
 )
 
 type Tailer struct {
@@ -72,6 +73,12 @@ func (t *Tailer) readLog(){
 			logs.Error("read line error:%v ", line.Err)
 			continue
 		}
+
+		lineStr := strings.TrimSpace(line.Text)
+		if len(lineStr)==0 ||lineStr[0]=='\n' {
+			continue
+		}
+		
 		kafkaSender.addMessage(line.Text)
 	}
 	waitGroup.Done()

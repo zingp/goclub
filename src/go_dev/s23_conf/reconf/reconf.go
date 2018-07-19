@@ -116,10 +116,8 @@ func (c *Config) parse() (m map[string]string, err error) {
 			err = errRet
 			return
 		}
-		
 		lineParse(&lineNo, &line, &m)
 	}
-
 	return 
 }
 

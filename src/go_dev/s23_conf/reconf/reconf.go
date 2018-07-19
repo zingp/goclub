@@ -131,7 +131,7 @@ func lineParse(lineNo *int, line *string, m *map[string]string) {
 		}
 
 		itemSlice := strings.Split(l, "=")
-		// =
+		// 
 		if len(itemSlice) == 0 {
 			fmt.Printf("invalid config, line:%d", lineNo)
 			return

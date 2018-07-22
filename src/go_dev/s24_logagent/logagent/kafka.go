@@ -1,42 +1,41 @@
 package main
 
-
-import(
+import (
 	"github.com/Shopify/sarama"
 	"github.com/astaxie/beego/logs"
 )
 
 type KafkaSender struct {
-	client sarama.SyncProducer
+	client   sarama.SyncProducer
 	lineChan chan string
 }
 
-var kafkaSender =  &KafkaSender{}
+var kafkaSender = &KafkaSender{}
 
-func NewKafkaSender(kafkaAddr string)(kafka *KafkaSender, err error){
+func NewKafkaSender(kafkaAddr string) (kafka *KafkaSender, err error) {
 	kafka = &KafkaSender{
 		lineChan: make(chan string, 100000),
 	}
 
 	config := sarama.NewConfig()
-	config.Producer.RequiredAcks = sarama.WaitForAll   //等待kafka ack
-	config.Producer.Partitioner = sarama.NewRandomPartitioner  // 随机分区
+	config.Producer.RequiredAcks = sarama.WaitForAll          //等待kafka ack
+	config.Producer.Partitioner = sarama.NewRandomPartitioner // 随机分区
 	config.Producer.Return.Successes = true
 
 	client, err := sarama.NewSyncProducer([]string{kafkaAddr}, config)
-	if err!= nil {
+	if err != nil {
 		logs.Error("init kafka client err: %v", err)
 		return
 	}
 	kafka.client = client
 
-	for i:=0; i<appConfig.ThreadNum;i++ {
+	for i := 0; i < appConfig.ThreadNum; i++ {
 		go kafka.sendMsgToKfk()
 	}
 	return
 }
 
-func initKafka()(err error) {
+func initKafka() (err error) {
 	kafkaSender, err = NewKafkaSender(appConfig.KafkaAddr)
 	return
 }
@@ -56,15 +55,7 @@ func (k *KafkaSender) sendMsgToKfk() {
 	}
 }
 
-func (k *KafkaSender) addMessage(line string) (err error){
+func (k *KafkaSender) addMessage(line string) (err error) {
 	k.lineChan <- line
 	return
 }
-
-
-// func RunServer(){
-// 	for i:=0;i<10;i++ {
-// 		kafkaSender.addMessage(fmt.Sprintf("wo ai beijing tiananmen %d\n",i))
-// 	}
-// 	time.Sleep(10*time.Second)
-// }

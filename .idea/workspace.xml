@@ -4,7 +4,14 @@
     <bookmark url="file://$PROJECT_DIR$/src/go_dev/day04/作业之回文数/main/main.go" line="24" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b818561a-697f-4be4-a232-f544dc45748c" name="Default" comment="" />
+    <list default="true" id="b818561a-697f-4be4-a232-f544dc45748c" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/src/go_dev/s24_logagent/logagent/config.go" afterPath="$PROJECT_DIR$/src/go_dev/s24_logagent/logagent/config.go" />
+      <change beforePath="$PROJECT_DIR$/src/go_dev/s24_logagent/logagent/kafka.go" afterPath="$PROJECT_DIR$/src/go_dev/s24_logagent/logagent/kafka.go" />
+      <change beforePath="$PROJECT_DIR$/src/go_dev/s24_logagent/logagent/logagent.log" afterPath="$PROJECT_DIR$/src/go_dev/s24_logagent/logagent/logagent.log" />
+      <change beforePath="$PROJECT_DIR$/src/go_dev/s24_logagent/logagent/main.go" afterPath="$PROJECT_DIR$/src/go_dev/s24_logagent/logagent/main.go" />
+      <change beforePath="$PROJECT_DIR$/src/go_dev/s24_logagent/logagent/tailf.go" afterPath="$PROJECT_DIR$/src/go_dev/s24_logagent/logagent/tailf.go" />
+    </list>
     <ignored path="$PROJECT_DIR$/.idea/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -128,7 +135,7 @@
         <entry file="file://$PROJECT_DIR$/src/go_dev/s21_mysql/mysqlConn/connMysql.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="415">
-              <caret line="129" column="32" lean-forward="true" selection-start-line="129" selection-start-column="32" selection-end-line="129" selection-end-column="32" />
+              <caret line="129" column="32" lean-forward="false" selection-start-line="129" selection-start-column="32" selection-end-line="129" selection-end-column="32" />
               <folding>
                 <element signature="e#14#114#0" expanded="true" />
                 <marker date="1531547730652" expanded="true" signature="751:900" ph="create table... user_info" />
@@ -233,7 +240,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="322" />
     <option name="y" value="75" />
     <option name="width" value="1440" />
@@ -452,7 +459,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13059701" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -905,7 +912,7 @@
     <entry file="file://$PROJECT_DIR$/src/go_dev/s21_mysql/mysqlConn/connMysql.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="415">
-          <caret line="129" column="32" lean-forward="true" selection-start-line="129" selection-start-column="32" selection-end-line="129" selection-end-column="32" />
+          <caret line="129" column="32" lean-forward="false" selection-start-line="129" selection-start-column="32" selection-end-line="129" selection-end-column="32" />
           <folding>
             <element signature="e#14#114#0" expanded="true" />
             <marker date="1531547730652" expanded="true" signature="751:900" ph="create table... user_info" />

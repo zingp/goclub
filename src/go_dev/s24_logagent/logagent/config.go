@@ -22,8 +22,8 @@ func initConfig(file string) (err error) {
 		return
 	}
 
-	listen_file := conf.String("listen_file")
-	fileSlice := strings.Split(listen_file, ",")
+	listenFileStr := conf.String("listen_file")
+	fileSlice := strings.Split(listenFileStr, ",")
 	for _, item := range fileSlice {
 		filename := strings.TrimSpace(item)
 		if len(filename) == 0 {
@@ -32,7 +32,7 @@ func initConfig(file string) (err error) {
 		appConfig.ListenFile = append(appConfig.ListenFile, filename)
 	}
 
-	appConfig.ThreadNum = conf.DefaultInt("DefaultInt", 8)
+	appConfig.ThreadNum = conf.DefaultInt("thread_num", 8)
 	appConfig.KafkaAddr = conf.String("kafka::addr")
 	appConfig.KafkaTopic = conf.String("kafka::topic")
 	appConfig.LogFile = conf.String("log::file")

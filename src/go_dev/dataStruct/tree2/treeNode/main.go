@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+// Node is a representation of binary tree node
 type Node struct {
 	value int
 	left  *Node

@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b818561a-697f-4be4-a232-f544dc45748c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/go_dev/s30_newLogAgent/logagent/conf/app.cfg" afterPath="$PROJECT_DIR$/src/go_dev/s30_newLogAgent/logagent/conf/app.cfg" />
-      <change beforePath="$PROJECT_DIR$/src/go_dev/s30_newLogAgent/logagent/config.go" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/go_dev/s30_newLogAgent/logagent/etcd.go" afterPath="$PROJECT_DIR$/src/go_dev/s30_newLogAgent/logagent/etcd.go" />
-      <change beforePath="$PROJECT_DIR$/src/go_dev/s30_newLogAgent/logagent/ip.go" afterPath="$PROJECT_DIR$/src/go_dev/s30_newLogAgent/logagent/ip.go" />
+      <change beforePath="$PROJECT_DIR$/src/go_dev/dataStruct/tree2/treeNode/main.go" afterPath="$PROJECT_DIR$/src/go_dev/dataStruct/tree2/treeNode/main.go" />
+      <change beforePath="$PROJECT_DIR$/src/go_dev/s30_newLogAgent/logagent/server.go" afterPath="" />
     </list>
     <ignored path="$PROJECT_DIR$/.idea/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

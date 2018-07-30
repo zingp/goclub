@@ -30,7 +30,6 @@ func getLocalIP()(ips []string, err error){
 				}
 			}
 		}
-
 	}
 	return
 }

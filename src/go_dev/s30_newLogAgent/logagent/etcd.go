@@ -1,25 +1,26 @@
 package main
 
 import (
+	"github.com/astaxie/beego/logs"
 	"context"
 	"time"
 	"fmt"
+	"sync"
 
 	client "github.com/coreos/etcd/clientv3"
 )
 
 var (
-	etcdAddr = "10.134.123.183:2379"
-	timeout time.Duration = 5
-	etcdWatchKey = "/logagent/%s/logconfig"
 	confChan = make(chan string)
+	cli *client.Client
+	waitGroup sync.WaitGroup
 )
 
-func initEtcd() {
+func initEtcd(addr []string, keyFormat string, timeout time.Duration) (err error){
 
 	cli, err := client.New(client.Config{
-		Endpoints:   []string{etcdAddr},
-		DialTimeout: timeout * time.Second,
+		Endpoints:   addr,
+		DialTimeout: timeout ,
 	})
 	if err != nil {
 		fmt.Println("connect etcd error:", err)
@@ -28,46 +29,63 @@ func initEtcd() {
 	defer cli.Close()
 
 	// 生成etcd key
-	var etcdKey []string
+	var etcdKeys []string
 	ips, err := getLocalIP()
 	if err != nil {
 		fmt.Println("get local ip error:", err)
 		return 
 	}
 	for _, ip := range ips {
-		key := fmt.Sprintf(etcdWatchKey, ip)
-		etcdKey = append(etcdKey, key)
+		key := fmt.Sprintf(keyFormat, ip)
+		etcdKeys = append(etcdKeys, key)
 	}
 
-	// 第一次运行主动从etcd拉取配置
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	for _, key := range etcdKey {
+	// 第一次运行主动从etcd拉取配置 
+	for _, key := range etcdKeys {
+		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 		resp, err := cli.Get(ctx, key)
 		cancel()
 		if err != nil {
 			fmt.Println("get etcd key failed, error:", err)
-			return
+			continue
 		}
 		
 		for _, ev := range resp.Kvs {
-			// 返回的类型不是string
-			// confChan <- stirng(ev.Value)
+			// 返回的类型不是string,需要强制转换
+			confChan <- string(ev.Value)
 			fmt.Printf("etcd key = %s , etcd value = %s", ev.Key, ev.Value)
-		}
-
-		go etcdWatch(cli, key)
-	}	
-}
-
-
-func etcdWatch(cli *client.Client, key string) {
-	rch := cli.Watch(context.Background(), key)
-	for wresp := range rch {
-		for _, ev := range wresp.Events {
-			fmt.Printf("%s %q :%q\n", ev.Type, ev.Kv.Key, ev.Kv.Value)
 		}
 	}
 
+	waitGroup.Add(1)
+	go etcdWatch(etcdKeys)	
+	return
+}
+
+
+func etcdWatch(keys []string) {
+	var watchChans []client.WatchChan
+	for _, key := range keys {
+		rch := cli.Watch(context.Background(), key)
+		watchChans = append(watchChans, rch)
+	}
+
+	for {
+		for _, watchC := range watchChans {
+			select {
+			case wresp :=<- watchC:
+				for _, ev := range wresp.Events {
+					confChan <- string(ev.Kv.Value)
+					logs.Debug("etcd key = %s , etcd value = %s", ev.Kv.Key, ev.Kv.Value)
+				}
+			default:
+			}
+		}
+		time.Sleep(time.Second)
+	}
+
+	// 这行代码永远访问不到
+	waitGroup.Done()
 }
 
 //GetEtcdConfig is func get etcd conf

@@ -1,13 +1,12 @@
 package main
 
 import (
-	"github.com/astaxie/beego/logs"
 	"fmt"
-	"time"
+	"github.com/astaxie/beego/logs"
 )
 
 var (
-	etcdAddr = []string{"10.134.123.183:2379"}
+	etcdAddr     = []string{"10.134.123.183:2379"}
 	etcdWatchKey = "/logagent/%s/logconfig"
 )
 
@@ -19,7 +18,7 @@ func main() {
 		return
 	}
 
-	err = initEtcd(etcdAddr, etcdWatchKey, 5*time.Duration)
+	err = initEtcd(etcdAddr, etcdWatchKey, 5)
 	if err != nil {
 		logs.Error("initEtcd error:%v", err)
 		return

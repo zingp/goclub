@@ -1,13 +1,13 @@
 package main
 
-import(
-	"net"
+import (
 	"fmt"
+	"net"
 )
 
 var ipArray []string
 
-func getLocalIP()(ips []string, err error){
+func getLocalIP() (ips []string, err error) {
 	ifaces, err := net.Interfaces()
 	if err != nil {
 		fmt.Println("get ip interfaces error:", err)
@@ -25,7 +25,7 @@ func getLocalIP()(ips []string, err error){
 			switch v := addr.(type) {
 			case *net.IPNet:
 				ip = v.IP
-				if (ip.IsGlobalUnicast()) {
+				if ip.IsGlobalUnicast() {
 					ips = append(ips, ip.String())
 				}
 			}
@@ -33,4 +33,3 @@ func getLocalIP()(ips []string, err error){
 	}
 	return
 }
-

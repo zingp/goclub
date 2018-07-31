@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/astaxie/beego/logs"
 	"sync/atomic"
 	"time"
+
+	"github.com/astaxie/beego/logs"
 )
 
 type SecondLimit struct {

@@ -5,6 +5,7 @@ import (
 	"github.com/astaxie/beego/logs"
 )
 
+var kafkaSender = &KafkaSender{}
 
 type Message struct {
 	line  string
@@ -16,7 +17,10 @@ type KafkaSender struct {
 	lineChan chan *Message
 }
 
-var kafkaSender = &KafkaSender{}
+func initKafka(kafkaAddr string, threadNum int) (err error) {
+	kafkaSender, err = NewKafkaSender(kafkaAddr, threadNum)
+	return
+}
 
 func NewKafkaSender(kafkaAddr string, threadNum int) (kafka *KafkaSender, err error) {
 	kafka = &KafkaSender{
@@ -38,11 +42,6 @@ func NewKafkaSender(kafkaAddr string, threadNum int) (kafka *KafkaSender, err er
 	for i := 0; i < threadNum; i++ {
 		go kafka.sendMsgToKfk()
 	}
-	return
-}
-
-func initKafka(kafkaAddr string, threadNum int) (kafkaSender *KafkaSender, err error) {
-	kafkaSender, err = NewKafkaSender(kafkaAddr, threadNum)
 	return
 }
 

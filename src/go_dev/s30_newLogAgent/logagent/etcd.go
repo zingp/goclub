@@ -3,11 +3,11 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/astaxie/beego/logs"
 	"sync"
 	"time"
 
 	client "github.com/coreos/etcd/clientv3"
+	"github.com/astaxie/beego/logs"
 )
 
 var (
@@ -82,7 +82,6 @@ func etcdWatch(keys []string) {
 		}
 		time.Sleep(time.Second)
 	}
-
 	// 这行代码永远访问不到
 	waitGroup.Done()
 }

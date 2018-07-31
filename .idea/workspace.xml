@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b818561a-697f-4be4-a232-f544dc45748c" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/src/go_dev/s30_newLogAgent/logagent/etcd.go" afterPath="$PROJECT_DIR$/src/go_dev/s30_newLogAgent/logagent/etcd.go" />
+      <change beforePath="$PROJECT_DIR$/src/go_dev/s30_newLogAgent/logagent/kafka.go" afterPath="$PROJECT_DIR$/src/go_dev/s30_newLogAgent/logagent/kafka.go" />
+      <change beforePath="$PROJECT_DIR$/src/go_dev/s30_newLogAgent/logagent/limit.go" afterPath="$PROJECT_DIR$/src/go_dev/s30_newLogAgent/logagent/limit.go" />
     </list>
     <ignored path="$PROJECT_DIR$/.idea/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,8 +37,8 @@
       <file leaf-file-name="connEtcd.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/go_dev/s27_etcd/etcdConn/connEtcd.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="604">
-              <caret line="40" column="46" lean-forward="false" selection-start-line="40" selection-start-column="46" selection-end-line="40" selection-end-column="46" />
+            <state relative-caret-position="490">
+              <caret line="34" column="28" lean-forward="true" selection-start-line="34" selection-start-column="28" selection-end-line="34" selection-end-column="28" />
               <folding>
                 <element signature="e#14#92#0" expanded="true" />
               </folding>
@@ -779,8 +780,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/go_dev/s27_etcd/etcdConn/connEtcd.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="604">
-          <caret line="40" column="46" lean-forward="false" selection-start-line="40" selection-start-column="46" selection-end-line="40" selection-end-column="46" />
+        <state relative-caret-position="490">
+          <caret line="34" column="28" lean-forward="true" selection-start-line="34" selection-start-column="28" selection-end-line="34" selection-end-column="28" />
           <folding>
             <element signature="e#14#92#0" expanded="true" />
           </folding>

@@ -57,13 +57,14 @@ func genRsyncLogObj(remoteAddr string, localAddr string, logName string) {
 }
 
 func (r *rsyncLog) Process() {
-	// fmt.Println("rsync:", r.rsyncCmd)
-	// _, err := ExecCmdLocal(r.rsyncCmd)
-	// if err != nil {
-	// 	logs.Error("execute cmd:%s error:%v", r.rsyncCmd, err)
-	// 	return
-	// }
-	// logs.Info("execute cmd:%s success", r.rsyncCmd)
+
+	//fmt.Println("rsync:", r.rsyncCmd)
+	_, err := ExecCmdLocal(r.rsyncCmd)
+	if err != nil {
+		logs.Error("execute cmd:%s error:%v", r.rsyncCmd, err)
+		return
+	}
+	logs.Info("execute cmd:%s success", r.rsyncCmd)
 
 	// statInfoLog.log.2018-07-31_14.resin48.shouji.zw.ted.10.142.71.193.statInfoLog.log.lzo
 	lzoLogName := fmt.Sprintf(`%s.%s.%s.%s.%s.lzo`, appConf.logName, timeStamp, r.host.Domain, r.host.IP, appConf.logName)
@@ -113,12 +114,12 @@ func (h *hadpLog) Process() {
 		close(rsyncChan)
 		close(lzopChan)
 		close(hadpChan)
-		fmt.Println("Num", eixtFlagObj.Num)
 	}
 }
 
 func rsyncToLocal() {
 	defer waitGroup.Done()
+	
 	for {
 		select{
 		case rLog, ok := <-rsyncChan:

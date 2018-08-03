@@ -67,11 +67,7 @@ func main() {
 		go putToHdfs()
 	}
 
-
-	fmt.Println("before")
 	waitGroup.Wait()
-	fmt.Println("after")
 
 	logs.Info("all done.")
-
 }

@@ -2,10 +2,10 @@ package main
 
 import (
 	"bufio"
+	"github.com/astaxie/beego/logs"
 	"io"
 	"os"
 	"strings"
-	"github.com/astaxie/beego/logs"
 )
 
 // GetHostMap func get host return map

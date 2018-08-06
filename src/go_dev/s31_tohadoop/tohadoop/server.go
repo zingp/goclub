@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"sync/atomic"
+
 	"github.com/astaxie/beego/logs"
 )
 
@@ -37,9 +38,10 @@ func genRsyncLogObj(remoteAddr string, localAddr string, logName string) {
 	// 获取一小时前日志的名称
 	lastHourLog := fmt.Sprintf("%s.%s", appConf.logName, timeStamp)
 	// rsync 命令格式
-	rsyncCmdFmt := `rsync -avzP rsync.%s::odin%s%s %s`
+	rsyncCmdFmt := `rsync -avzP rsync.%s::odin%s%s %s%s`
 	for k, v := range hostMap {
-		rsyncCmd := fmt.Sprintf(rsyncCmdFmt, k, remoteAddr, lastHourLog, localAddr)
+		localLogName := fmt.Sprintf("%s.%s", k, lastHourLog)
+		rsyncCmd := fmt.Sprintf(rsyncCmdFmt, k, remoteAddr, lastHourLog, localAddr, localLogName)
 
 		hostObj := &Host{
 			Domain: k,
@@ -48,7 +50,7 @@ func genRsyncLogObj(remoteAddr string, localAddr string, logName string) {
 		rsyncLogObj := &rsyncLog{
 			host:      hostObj,
 			remoteLog: fmt.Sprintf(`%s%s`, remoteAddr, lastHourLog),
-			localLog:  fmt.Sprintf(`%s%s`, localAddr, lastHourLog),
+			localLog:  fmt.Sprintf(`%s%s`, localAddr, localLogName),
 			rsyncCmd:  rsyncCmd,
 		}
 
@@ -81,12 +83,12 @@ func (r *rsyncLog) Process() {
 
 func (lzo *lzopLog) Process() {
 	// fmt.Println("lzop:", lzo.lzoCmd)
-	// _, err := ExecCmdLocal(lzo.lzoCmd)
-	// if err != nil {
-	// 	logs.Error("execute cmd:%s error:%v", lzo.lzoCmd, err)
-	// 	return
-	// }
-	// logs.Info("execute cmd:%s success", lzo.lzoCmd)
+	_, err := ExecCmdLocal(lzo.lzoCmd)
+	if err != nil {
+		logs.Error("execute cmd:%s error:%v", lzo.lzoCmd, err)
+		return
+	}
+	logs.Info("execute cmd:%s success", lzo.lzoCmd)
 
 	hdfsLogFile := fmt.Sprintf(`%s%s/%s/`, appConf.hdfs, timeMon, timeDay)
 	hadpLogObj := &hadpLog{
@@ -100,28 +102,22 @@ func (lzo *lzopLog) Process() {
 }
 
 func (h *hadpLog) Process() {
-	fmt.Println("put to hadoop:", h.putCmd)
-	// _, err := ExecCmdLocal(h.putCmd)
-	// if err != nil {
-	// 	logs.Error("put to hadoop failed cmd:%s error:%v", h.putCmd, err)
-	// 	return
-	// }
-	
-	logs.Info("put to hadoop success cmd:%s", h.putCmd)
-	atomic.AddInt32(&eixtFlagObj.Num, 1)
-	
-	if eixtFlagObj.Num == int32(len(hostMap)) {
-		close(rsyncChan)
-		close(lzopChan)
-		close(hadpChan)
+	// fmt.Println("put to hadoop:", h.putCmd)
+	_, err := ExecCmdLocal(h.putCmd)
+	if err != nil {
+		logs.Error("put to hadoop failed cmd:%s error:%v", h.putCmd, err)
+		return
 	}
+
+	atomic.AddInt32(&sucessNum, 1)
+	logs.Info("put to hadoop success cmd:%s Num:%d", h.putCmd, sucessNum)
 }
 
 func rsyncToLocal() {
 	defer waitGroup.Done()
-	
+
 	for {
-		select{
+		select {
 		case rLog, ok := <-rsyncChan:
 			if !ok {
 				return
@@ -137,7 +133,7 @@ func lzopToLocal() {
 
 	for {
 		select {
-		case lLog, ok :=<- lzopChan:
+		case lLog, ok := <-lzopChan:
 			if !ok {
 				return
 			}
@@ -152,7 +148,7 @@ func putToHdfs() {
 
 	for {
 		select {
-		case hLog,ok :=<- hadpChan:
+		case hLog, ok := <-hadpChan:
 			if !ok {
 				return
 			}

@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"sync"
 	"time"
-	"github.com/astaxie/beego/logs"
 )
 
 var (
@@ -12,6 +11,8 @@ var (
 	timeStamp string
 	timeDay   string
 	timeMon   string
+	timeStart int64
+	sucessNum int32
 	hostMap   map[string]string
 	rsyncChan = make(chan *rsyncLog, 60)
 	lzopChan  = make(chan *lzopLog)
@@ -25,10 +26,11 @@ func initTimeStr() {
 	timeStamp = time.Now().Add(h).Format("2006-01-02_15")
 	timeDay = time.Now().Add(h).Format("20060102")
 	timeMon = time.Now().Add(h).Format("200601")
+	timeStart = time.Now().Unix()
 }
 
 func init() {
-	confFile := "./tohadoop.cfg"
+	confFile := "../conf/tohadoop.cfg"
 	err := initConfig(confFile)
 	if err != nil {
 		fmt.Printf("load conf failed:%v\n", err)
@@ -44,11 +46,14 @@ func init() {
 		return
 	}
 
+	initDir(appConf.localAddr)
+	initDir(appConf.lzopAddr)
+	initHadoopDir()
+
 	err = GetHostMap(appConf.hostFile)
 	if err != nil {
 		fmt.Printf("get host map failed:%v\n", err)
 	}
-
 }
 
 func main() {
@@ -67,7 +72,8 @@ func main() {
 		go putToHdfs()
 	}
 
-	waitGroup.Wait()
+	waitGroup.Add(1)
+	go goroutineExit()
 
-	logs.Info("all done.")
+	waitGroup.Wait()
 }

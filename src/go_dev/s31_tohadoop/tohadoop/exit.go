@@ -1,13 +1,14 @@
 package main
 
 import (
-	"github.com/astaxie/beego/logs"
 	"time"
+
+	"github.com/astaxie/beego/logs"
 )
 
 // 超时或者日志上传完毕关闭管道，退出各个goroutine
 func goroutineExit() {
-	ticker := time.NewTicker(30 * time.Second)
+	ticker := time.NewTicker(10 * time.Second)
 	for range ticker.C {
 		func() {
 			defer close(rsyncChan)

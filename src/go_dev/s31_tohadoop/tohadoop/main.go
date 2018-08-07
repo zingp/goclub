@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"fmt"
 	"sync"
 	"time"
@@ -38,6 +39,11 @@ func init() {
 	}
 
 	initTimeStr()
+	if len(os.Args) == 3 {
+		date := os.Args[1]
+		hour := os.Args[2]
+		reInitTime(date, hour)
+	}
 
 	logfile := fmt.Sprintf("%s.%s", appConf.logFile, timeStamp)
 	err = initLogs(logfile)

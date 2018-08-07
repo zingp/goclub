@@ -60,7 +60,7 @@ func genRsyncLogObj(remoteAddr string, localAddr string, logName string) {
 
 func (r *rsyncLog) Process() {
 
-	//fmt.Println("rsync:", r.rsyncCmd)
+	// fmt.Println("rsync:", r.rsyncCmd)
 	_, err := ExecCmdLocal(r.rsyncCmd)
 	if err != nil {
 		logs.Error("execute cmd:%s error:%v", r.rsyncCmd, err)

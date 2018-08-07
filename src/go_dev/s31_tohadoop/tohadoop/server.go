@@ -117,14 +117,11 @@ func rsyncToLocal() {
 	defer waitGroup.Done()
 
 	for {
-		select {
-		case rLog, ok := <-rsyncChan:
-			if !ok {
-				return
-			}
-			rLog.Process()
-		default:
+		rLog, ok := <-rsyncChan
+		if !ok {
+			return
 		}
+		rLog.Process()
 	}
 }
 
@@ -132,14 +129,11 @@ func lzopToLocal() {
 	defer waitGroup.Done()
 
 	for {
-		select {
-		case lLog, ok := <-lzopChan:
-			if !ok {
+		lLog, ok := <-lzopChan
+		if !ok {
 				return
-			}
-			lLog.Process()
-		default:
 		}
+		lLog.Process()
 	}
 }
 
@@ -147,13 +141,10 @@ func putToHdfs() {
 	defer waitGroup.Done()
 
 	for {
-		select {
-		case hLog, ok := <-hadpChan:
-			if !ok {
-				return
-			}
-			hLog.Process()
-		default:
+		hLog, ok := <-hadpChan
+		if !ok {
+			return
 		}
+		hLog.Process()
 	}
 }

@@ -17,6 +17,7 @@ func countItems(file string)(err error) {
 	f, err := os.Open(file)
 	if err != nil {
 		fmt.Println("open file err:", err)
+	
 		return
 	}
 	defer f.Close()
@@ -33,7 +34,7 @@ func countItems(file string)(err error) {
 		if err != nil {
 			fmt.Println("read string err", err)
 		}
-		fmt.Println(line)
+		// fmt.Println(line)
 
 		//得到一行
 		reg := regexp.MustCompile(part)

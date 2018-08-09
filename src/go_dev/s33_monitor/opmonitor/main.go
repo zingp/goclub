@@ -1,7 +1,7 @@
 package main
 
 import (
-	"time"
+	// "time"
 	"github.com/astaxie/beego/logs"
 	"sync"
 	"fmt"
@@ -24,10 +24,16 @@ func main() {
 		return
 	}
 
-	for k, v := range appConf.ProcMaP{
-		waitGroup.Add(1)
-		go checkProc(k, v.StartCmd, time.Duration(v.TimeInterval)* time.Second)
+	// for k, v := range appConf.ProcMaP{
+	// 	waitGroup.Add(1)
+	// 	go checkProc(k, v.StartCmd, time.Duration(v.TimeInterval)* time.Second)
+	// }
+
+	err = countItems(appConf.CountFile)
+	if err != nil {
+		logs.Error("count items failed:%v", err)
 	}
+	fmt.Println(countItemsMap)
 
 	waitGroup.Wait()
 }

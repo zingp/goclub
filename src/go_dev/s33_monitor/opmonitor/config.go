@@ -16,6 +16,7 @@ type ProcObj struct {
 //AppConf 存放配置文件
 type AppConf struct {
 	ProcMaP map[string]*ProcObj
+	CountFile string
 }
 
 var appConf = &AppConf{
@@ -56,6 +57,8 @@ func initConfig(file string) (err error) {
 		fmt.Printf("monitor.cfg item:proc invalid")
 		logs.Error("monitor.cfg item:proc invalid")
 	}
+
+	appConf.CountFile = conf.String("countFile")
 	
 	return
 }

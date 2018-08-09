@@ -20,6 +20,7 @@ func runShell(c string)(sucOut string, errOut string) {
 		errOut = strings.Trim(string(stderr.Bytes()), "\n")
 		return
 	}
+	
 	sucOut = strings.Trim(string(stdout.Bytes()), "\n")
 	return
 }

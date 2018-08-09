@@ -1,21 +1,21 @@
 package main
 
 import (
-	"strings"
 	"fmt"
 	"github.com/astaxie/beego/config"
 	"github.com/astaxie/beego/logs"
+	"strings"
 )
 
 type ProcObj struct {
-	Name string
-	StartCmd string
+	Name         string
+	StartCmd     string
 	TimeInterval int
 }
 
 //AppConf 存放配置文件
 type AppConf struct {
-	ProcMaP map[string]*ProcObj
+	ProcMaP   map[string]*ProcObj
 	CountFile string
 }
 
@@ -43,8 +43,8 @@ func initConfig(file string) (err error) {
 			name := strings.TrimSpace(perProcSlice[0])
 			startCmd := strings.TrimSpace(perProcSlice[1])
 			procObj := &ProcObj{
-				Name: name,
-				StartCmd: startCmd,
+				Name:         name,
+				StartCmd:     startCmd,
 				TimeInterval: timeInterval,
 			}
 			_, ok := appConf.ProcMaP[name]
@@ -59,6 +59,6 @@ func initConfig(file string) (err error) {
 	}
 
 	appConf.CountFile = conf.String("countFile")
-	
+
 	return
 }

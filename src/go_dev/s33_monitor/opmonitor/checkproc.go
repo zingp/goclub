@@ -1,13 +1,13 @@
 package main
 
-import(
+import (
 	"fmt"
-	"time"
 	"github.com/astaxie/beego/logs"
+	"time"
 )
 
 // 定时check 不存在则拉起
-func checkProc(p string, start string, t time.Duration){
+func checkProc(p string, start string, t time.Duration) {
 	defer waitGroup.Done()
 
 	ticker := time.NewTicker(t)
@@ -24,6 +24,5 @@ func checkProc(p string, start string, t time.Duration){
 				logs.Info(fmt.Sprintf(logFmt, p, s))
 			}
 		}
-	}	
+	}
 }
-

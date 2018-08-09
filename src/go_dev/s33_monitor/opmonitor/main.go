@@ -2,9 +2,9 @@ package main
 
 import (
 	// "time"
+	"fmt"
 	"github.com/astaxie/beego/logs"
 	"sync"
-	"fmt"
 )
 
 var waitGroup sync.WaitGroup

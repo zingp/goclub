@@ -29,11 +29,9 @@ func main() {
 	// 	go checkProc(k, v.StartCmd, time.Duration(v.TimeInterval)* time.Second)
 	// }
 
-	err = countItems(appConf.CountFile)
-	if err != nil {
-		logs.Error("count items failed:%v", err)
-	}
-	fmt.Println(countItemsMap)
+	waitGroup.Add(1)
+	go cron(appConf.CountFile)
 
 	waitGroup.Wait()
+	fmt.Println(111)
 }

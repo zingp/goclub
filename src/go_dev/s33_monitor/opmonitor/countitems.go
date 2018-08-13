@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"github.com/astaxie/beego/logs"
 	"io"
 	"os"
 	"regexp"
@@ -44,8 +45,8 @@ func countItems(file string) (err error) {
 				continue
 			}
 			kvSlice := strings.Split(item, "=")
-			k := kvSlice[0]
-			v, err := strconv.Atoi(kvSlice[1])
+			k := strings.TrimSpace(kvSlice[0])
+			v, err := strconv.Atoi(strings.TrimSpace(kvSlice[1]))
 			if err != nil {
 				continue
 			}
@@ -67,4 +68,35 @@ func getPart() (part string) {
 	timeMinStr := time.Now().Add(m).Format("2006/01/02 15:04")
 	part = fmt.Sprintf(partStr, timeMinStr)
 	return
+}
+
+func cron(file string) {
+
+	nowTimeMin := time.Now().Format("200601021504")
+	lastTimeMin := nowTimeMin
+
+	tricker := time.NewTicker(5 * time.Second)
+	for range tricker.C {
+		nowTimeMin = time.Now().Format("200601021504")
+		if lastTimeMin != nowTimeMin {
+			lastTimeMin = nowTimeMin
+
+			err := countItems(file)
+			if err != nil {
+				continue
+			}
+
+			logStr := "items ["
+			for k, v := range countItemsMap {
+				kvStr := fmt.Sprintf("%s=%d,", k, v)
+				logStr += kvStr
+			}
+			logStr += "]"
+
+			logs.Info(logStr)
+			// 清空map
+			countItemsMap = make(map[string]int)
+		}
+	}
+	waitGroup.Done()
 }

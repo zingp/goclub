@@ -56,7 +56,7 @@ func initDir(dir string) {
 
 func initHadoopDir() {
 	hdfs := fmt.Sprintf(`%s%s/%s`, appConf.hdfs, timeMon, timeDay)
-	cmdFmt := `if ! %s fs -ls %s >/dev/null 2>&1;then %s fs -mkdir %s;fi`
+	cmdFmt := `if ! %s fs -ls %s >/dev/null 2>&1;then %s fs -mkdir -p %s;fi`
 	cmd := fmt.Sprintf(cmdFmt, appConf.hadoopClient, hdfs, appConf.hadoopClient, hdfs)
 	_, err := ExecCmdLocal(cmd)
 	if err != nil {

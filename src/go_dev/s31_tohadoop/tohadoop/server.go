@@ -38,7 +38,8 @@ func genRsyncLogObj(remoteAddr string, localAddr string, logName string) {
 	// 获取一小时前日志的名称
 	lastHourLog := fmt.Sprintf("%s.%s", appConf.logName, timeStamp)
 	// rsync 命令格式
-	rsyncCmdFmt := `rsync -avzP rsync.%s::odin%s%s %s%s`
+	// rsyncCmdFmt := `rsync -avzP rsync.%s::odin%s%s %s%s`
+	rsyncCmdFmt := `rsync -avzP %s::odin%s%s %s%s`
 	for k, v := range hostMap {
 		localLogName := fmt.Sprintf("%s.%s", k, lastHourLog)
 		rsyncCmd := fmt.Sprintf(rsyncCmdFmt, k, remoteAddr, lastHourLog, localAddr, localLogName)

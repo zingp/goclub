@@ -23,7 +23,7 @@ func GetHostMap(file string) (err error) {
 		line, err := reader.ReadString('\n')
 		if err == io.EOF {
 			line = strings.TrimSpace(line)
-			if len(line) == 0 {
+			if len(line) == 0 || line[0] =='\n' || line[0]=='#' || line[0]==';' {
 				break
 			}
 			lineSlice := strings.Split(line, ":")
@@ -32,13 +32,14 @@ func GetHostMap(file string) (err error) {
 				break
 			}
 			logs.Error("host conf error:%v", lineSlice)
+			break
 		}
 		if err != nil {
 			continue
 		}
-		
+
 		line = strings.TrimSpace(line)
-		if len(line) == 0 {
+		if len(line) == 0 || line[0] =='\n' || line[0]=='#' || line[0]==';'  {
 			continue
 		}
 		lineSlice := strings.Split(line, ":")

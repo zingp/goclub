@@ -71,16 +71,10 @@ func getPart() (part string) {
 }
 
 func cron(file string) {
-
-	nowTimeMin := time.Now().Format("200601021504")
-	lastTimeMin := nowTimeMin
-
-	tricker := time.NewTicker(5 * time.Second)
+	tricker := time.NewTicker(time.Second)
 	for range tricker.C {
-		nowTimeMin = time.Now().Format("200601021504")
-		if lastTimeMin != nowTimeMin {
-			lastTimeMin = nowTimeMin
-
+		nowTime := time.Now().Unix()
+		if nowTime % 60 < 1 {
 			err := countItems(file)
 			if err != nil {
 				continue

@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"log"
 	"os/exec"
 	"os"
 	"strings"
@@ -15,14 +14,16 @@ import (
 
 func runShell(s string) {
 	cmd := exec.Command("/bin/bash", "-c", s)
-	var out bytes.Buffer
-
-	cmd.Stdout = &out
+	var stdout, stderr bytes.Buffer
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
 	err := cmd.Run()
 	if err != nil {
-		log.Fatal(err)
+		fmt.Printf("error detail:%s error status:%v\n",string(stderr.Bytes()), err)
+		return
 	}
-	fmt.Printf("%s", out.String())
+	outStr := string(stdout.Bytes())
+	fmt.Printf("Success out:%s\n", outStr)
 }
 
 func main() {

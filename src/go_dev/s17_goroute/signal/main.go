@@ -15,6 +15,7 @@ func poducer(strChan chan string, flagChan chan bool) {
 		i        int
 		exitFlag bool
 	)
+	
 	// 生产者不断往队列中push数据
 	for {
 		str := fmt.Sprintf("chan data %d", i)

@@ -1,10 +1,10 @@
 package main
 
 import (
-	// "time"
+	"time"
 	"fmt"
-	"github.com/astaxie/beego/logs"
 	"sync"
+	"github.com/astaxie/beego/logs"
 )
 
 var waitGroup sync.WaitGroup
@@ -24,10 +24,10 @@ func main() {
 		return
 	}
 
-	// for k, v := range appConf.ProcMaP{
-	// 	waitGroup.Add(1)
-	// 	go checkProc(k, v.StartCmd, time.Duration(v.TimeInterval)* time.Second)
-	// }
+	for k, v := range appConf.ProcMaP{
+		waitGroup.Add(1)
+		go checkProc(k, v.StartCmd, time.Duration(v.TimeInterval)* time.Second)
+	}
 
 	waitGroup.Add(1)
 	go cron(appConf.CountFile)

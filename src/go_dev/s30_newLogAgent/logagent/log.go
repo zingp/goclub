@@ -24,7 +24,7 @@ func getLevel(level string) int {
 
 func initLogs(filename string, level string) (err error) {
 	config := make(map[string]interface{})
-	config["filename"] = level
+	config["filename"] = filename
 	config["level"] = getLevel(level)
 
 	configStr, err := json.Marshal(config)

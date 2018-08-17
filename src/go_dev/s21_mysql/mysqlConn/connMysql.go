@@ -18,7 +18,8 @@ type UserInfo struct{
 
 // 连接mysql
 func main(){
-	Db, err := sqlx.Open("mysql", "root:123456@tcp(10.143.57.161:3306)/lyydb")
+	// Db, err := sqlx.Open("mysql", "root:123456@tcp(10.143.57.161:3306)/lyydb")
+	Db, err := sqlx.Open("mysql", "root:abc456@tcp(10.134.123.183:3306)/go_test_db")
 	if err != nil {
 		fmt.Println("connect to mysql error:", err)
 		return
@@ -28,9 +29,9 @@ func main(){
 	
 	start := time.Now().UnixNano()
 	// create(Db)
-	// insert(Db)
-	// selectDb(Db)
-	eventDb(Db)
+	insert(Db)
+	selectDb(Db)
+	// eventDb(Db)
 	end := time.Now().UnixNano()
 	fmt.Printf("cost time=%d ms", (start - end)/1000/1000)
 }
@@ -38,14 +39,14 @@ func main(){
 // 增删改查 事务Begin
 
 func create(Db *sqlx.DB){
-	createSql := `create table user_info (
+	createSQL := `create table user_info (
 		id int primary key auto_increment,
 		name varchar(50),
 		sex enum('male', 'female'),
 		age int(3),
 		email varchar(64)
 		);`
-	result, err := Db.Exec(createSql)
+	result, err := Db.Exec(createSQL)
 	if err != nil {
 		fmt.Printf("create table error:%v", err)
 		return
@@ -55,7 +56,7 @@ func create(Db *sqlx.DB){
 }
 
 func insert(Db *sqlx.DB) {
-	for i:=0; i<1000000;i++ {
+	for i:=0; i<100;i++ {
 		name := fmt.Sprintf("user%d", i)
 		sex := "male"
 		if i % 2 == 1 {

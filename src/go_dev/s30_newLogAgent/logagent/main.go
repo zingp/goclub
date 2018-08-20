@@ -1,26 +1,37 @@
 package main
 
 import (
+	"time"
 	"fmt"
 	"github.com/astaxie/beego/logs"
 )
 
-var (
-	etcdAddr     = []string{"10.134.123.183:2379"}
-	etcdWatchKey = "/logagent/%s/logconfig"
-)
-
 func main() {
-	// 读取本agent配置
-	err := initLogs("./log/logagent.log", "debug")
+	confFile := "./conf/app.cfg"
+	err := initConfig(confFile)
+	if err != nil {
+		fmt.Printf("init conf failed:%v", err)
+		return
+	}
+
+	err = initLogs(appConf.LogFile, appConf.LogLevel)
 	if err != nil {
 		fmt.Printf("init log failed:%v", err)
 		return
 	}
 
-	err = initEtcd(etcdAddr, etcdWatchKey, 5)
+	timeout := time.Duration(appConf.EtcdTimeOut)
+	var etcdAddrSlice []string
+	etcdAddrSlice = append(etcdAddrSlice, appConf.EtcdAddr)
+	err = initEtcd(etcdAddrSlice, appConf.EtcdWatchKey, timeout)
 	if err != nil {
-		logs.Error("initEtcd error:%v", err)
+		logs.Error("init etcd Failed:%v", err)
+		return
+	}
+
+	err = initKafka(appConf.KafkaAddr, appConf.ThreadNum)
+	if err != nil {
+		logs.Error("init kafka Failed:%v", err)
 		return
 	}
 

@@ -26,7 +26,7 @@ func main() {
 	defer cli.Close()
 
 	// 返回一个管道
-	rch := cli.Watch(context.Background(), "/logagent/conf")
+	rch := cli.Watch(context.Background(), "/logagent/conf333")
 	for wresp := range rch {
 		for _, ev := range wresp.Events {
 			fmt.Printf("%s %q :%q\n", ev.Type, ev.Kv.Key, ev.Kv.Value)

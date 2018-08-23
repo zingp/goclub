@@ -1,0 +1,10 @@
+2018/07/19 20:21:57.506 [D] [main.go:53] add logfile success D:/a.log
+2018/07/19 20:21:57.506 [D] [main.go:53] add logfile success D:/b.log
+2018/07/20 11:34:22.575 [D] [main.go:62] add logfile success D:/a.log
+2018/07/20 11:34:22.575 [D] [main.go:62] add logfile success D:/b.log
+2018/07/27 15:22:41.087 [D] [main.go:30] add logfile success D:/a.log
+2018/07/27 15:22:41.087 [D] [main.go:30] add logfile success D:/b.log
+2018/07/27 15:23:08.057 [D] [main.go:30] add logfile success D:/a.log
+2018/07/27 15:23:08.057 [D] [main.go:30] add logfile success D:/b.log
+2018/07/27 15:23:26.155 [D] [main.go:30] add logfile success D:/a.log
+2018/07/27 15:23:26.156 [D] [main.go:30] add logfile success D:/b.log

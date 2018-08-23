@@ -1,0 +1,21 @@
+apiVersion: v1                 # 指定api版本，此值必须在kubectl apiversion中
+kind: ReplicationController    # 指定创建资源的角色/类型
+metadata:                      # 资源的元数据/属性
+  name: mysql                  # 资源的名字，在同一个namespace中必须唯一
+spec:
+  replicas: 1                  # 副本数量1
+  selector:                    # RC通过spec.selector来筛选要控制的Pod
+    app: mysql
+  template:                    # 这里Pod 的定义
+    metadata:
+      labels:                  # Pod 的label，可以看到这个label与spec.selector相同
+        app: mysql
+    spec:                      # 指定该资源的内容
+      containers:
+      - name: mysql            # 容器的名字
+        image: mysql           # 容器使用的镜像地址
+        ports:
+        - containerPort: 3306  # 容器开放对外的端口
+        env:                   # 注入容器内的环境变量
+        - name: MYSQL_ROOT_PASSWORD
+          value: "123456"

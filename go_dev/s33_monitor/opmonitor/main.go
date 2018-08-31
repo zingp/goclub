@@ -10,17 +10,17 @@ import (
 var waitGroup sync.WaitGroup
 
 func main() {
-	logFile := "./monitor.log"
-	err := initLogs(logFile)
+	confFile := "./conf/app.cfg"
+	err := initConfig(confFile)
 	if err != nil {
-		fmt.Printf("init log failed:%v\n", err)
+		logs.Error("init config failed:%v", err)
 		return
 	}
 
-	confFile := "./monitor.cfg"
-	err = initConfig(confFile)
+	logFile := "./logs/monitor.log"
+	err = initLogs(logFile)
 	if err != nil {
-		logs.Error("init config failed:%v", err)
+		fmt.Printf("init log failed:%v\n", err)
 		return
 	}
 
@@ -33,5 +33,4 @@ func main() {
 	go cron(appConf.CountFile)
 
 	waitGroup.Wait()
-	fmt.Println(111)
 }

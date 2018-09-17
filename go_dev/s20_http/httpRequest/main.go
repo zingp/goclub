@@ -20,7 +20,7 @@ func HttpGet(url string){
 	fmt.Println(string(data))
 }
 func main() {
-	url := "https://www.cnblogs.com/zingp/p/6537841.html"
+	url := "http://127.0.0.1:9090/items"
 	HttpGet(url)
 
 }

@@ -31,7 +31,7 @@ func initTimeStr() {
 }
 
 func init() {
-	confFile := "../conf/tohadoop.cfg"
+	confFile := "./conf/tohadoop.cfg"
 	err := initConfig(confFile)
 	if err != nil {
 		fmt.Printf("load conf failed:%v\n", err)
@@ -60,26 +60,27 @@ func init() {
 	if err != nil {
 		fmt.Printf("get host map failed:%v\n", err)
 	}
+	fmt.Println("len:", len(hostMap))
 }
 
 func main() {
 	genRsyncLogObj(appConf.remoteAddr, appConf.localAddr, appConf.logName)
 
-	for i := 0; i < appConf.threadNum; i++ {
-		waitGroup.Add(1)
-		go rsyncToLocal()
-	}
-	for i := 0; i < appConf.threadNum; i++ {
-		waitGroup.Add(1)
-		go lzopToLocal()
-	}
-	for i := 0; i < appConf.threadNum; i++ {
-		waitGroup.Add(1)
-		go putToHdfs()
-	}
+	// for i := 0; i < appConf.threadNum; i++ {
+	// 	waitGroup.Add(1)
+	// 	go rsyncToLocal()
+	// }
+	// for i := 0; i < appConf.threadNum; i++ {
+	// 	waitGroup.Add(1)
+	// 	go lzopToLocal()
+	// }
+	// for i := 0; i < appConf.threadNum; i++ {
+	// 	waitGroup.Add(1)
+	// 	go putToHdfs()
+	// }
 
-	waitGroup.Add(1)
-	go goroutineExit()
+	// waitGroup.Add(1)
+	// go goroutineExit()
 
-	waitGroup.Wait()
+	// waitGroup.Wait()
 }

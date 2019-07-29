@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go_dev/day01/管道和公有私有/testPipe"
+	"../testPipe"
 	"fmt"
 )
 /*
@@ -15,4 +15,10 @@ func main(){
 	res2 :=<- pipe
 	res3 :=<- pipe
 	fmt.Println(res1, res2, res3)
+
+	// 如果初始化一个有缓冲管道，不放数据直接读会自杀
+	pipe2 := make(chan int, 10)
+	pipe2 <- 8
+	r :=<- pipe2
+	fmt.Println(r)
 }

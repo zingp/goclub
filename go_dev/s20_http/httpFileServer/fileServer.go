@@ -7,7 +7,7 @@ import(
 
 // 简单文件服务
 func SimpleFileServer(){
-	http.Handle("/", http.FileServer(http.Dir("./")))
+	http.Handle("/", http.FileServer(http.Dir("/Users/liuyouyuan")))
 	http.ListenAndServe(":8080", nil)
 }
 
@@ -18,5 +18,5 @@ func MyFileServer(){
 }
 
 func main(){
-	MyFileServer()
+	SimpleFileServer()
 }

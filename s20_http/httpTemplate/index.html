@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>模板学习</title>
+</head>
+<body>
+    {{ if gt .Age  25}}
+    <p> Hello girl, {{ .Name}}</p>
+    {{ else }}
+    <p> Hello young girl, {{ .Name}}</p>
+    {{ end }}
+</body>
+</html>

@@ -1,6 +1,0 @@
-2018/07/19 14:40:14.130 [D] this is a Debug, my name is yy01
-2018/07/19 14:40:14.130 [D] this is a trace, my name is yy02
-2018/07/19 14:40:14.130 [W] this is a warn, my name is yy03
-2018/07/19 14:45:21.794 [D] [main.go:28] this is a Debug, my name is yy01
-2018/07/19 14:45:21.794 [D] [main.go:28] this is a trace, my name is yy02
-2018/07/19 14:45:21.794 [W] [main.go:28] this is a warn, my name is yy03

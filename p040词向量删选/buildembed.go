@@ -6,15 +6,33 @@ import (
 	"io"
 	"bufio"
 	"strings"
+	"flag"
 )
 /*
 [1] 读取词表文件
 [2] 读取embeddings文件
 [3] 过滤
 UNK 的词向量表示？
-PAd 的词向量如何表示？
+PAD 的词向量如何表示？
 */
 
+var (
+	userVocabFile string
+	wordEmbeddingFile string
+	outputEmbedingFile string
+	threadNums int
+)
+
+func init(){
+	
+	flag.StringVar(&userVocabFile, "-userfile", "", "user vocab file")
+	flag.StringVar(&wordEmbeddingFile, "-w2vfile", "", "source word embedding file")
+	flag.StringVar(&outputEmbedingFile, "-outfile", "", "output emdbedding file")
+	flag.IntVar(&threadNums, "-thread", 6, "thread nums")
+	flag.Parse()  
+}
+
+// 加载未筛减word embedding
 func LoadEmbedding(f string) map[string][]string{
 	embedings := map[string][]string{}
 	file, err := os.Open(f)
@@ -47,7 +65,7 @@ func LoadEmbedding(f string) map[string][]string{
 	return embedings
 }
 
-
+// 传入用户词表文件，得到用户词表的wordembedings　
 func GetWordEmbeds(f string, m map[string][]string) map[string][]string {
 	embedings := map[string][]string{}
 
@@ -74,7 +92,6 @@ func GetWordEmbeds(f string, m map[string][]string) map[string][]string {
 		if vec, ok := m[word]; ok {
 			embedings[word] = vec
 		} 
-
 	}	
 	return embedings
 }

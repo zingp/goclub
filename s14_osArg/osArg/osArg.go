@@ -31,5 +31,6 @@ func init(){
 func main() {
 	// testOsArgs()
 	fmt.Printf("file=%s; row=%d", file, row)
+	fmt.Println("未解析参数：", flag.Args())
 	
 }

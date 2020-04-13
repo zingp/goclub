@@ -1,3 +1,10 @@
+/*
+[1] 读取词表文件
+[2] 读取embeddings文件
+[3] 过滤
+UNK 的词向量表示？
+PAD 的词向量如何表示？
+*/
 package main
 
 import (
@@ -7,30 +14,8 @@ import (
 	"bufio"
 	"strings"
 	"flag"
+	"time"
 )
-/*
-[1] 读取词表文件
-[2] 读取embeddings文件
-[3] 过滤
-UNK 的词向量表示？
-PAD 的词向量如何表示？
-*/
-
-var (
-	userVocabFile string
-	wordEmbeddingFile string
-	outputEmbedingFile string
-	threadNums int
-)
-
-func init(){
-	
-	flag.StringVar(&userVocabFile, "-userfile", "", "user vocab file")
-	flag.StringVar(&wordEmbeddingFile, "-w2vfile", "", "source word embedding file")
-	flag.StringVar(&outputEmbedingFile, "-outfile", "", "output emdbedding file")
-	flag.IntVar(&threadNums, "-thread", 6, "thread nums")
-	flag.Parse()  
-}
 
 // 加载未筛减word embedding
 func LoadEmbedding(f string) map[string][]string{
@@ -65,6 +50,7 @@ func LoadEmbedding(f string) map[string][]string{
 	return embedings
 }
 
+
 // 传入用户词表文件，得到用户词表的wordembedings　
 func GetWordEmbeds(f string, m map[string][]string) map[string][]string {
 	embedings := map[string][]string{}
@@ -96,6 +82,7 @@ func GetWordEmbeds(f string, m map[string][]string) map[string][]string {
 	return embedings
 }
 
+
 func WriteMap(file string, m map[string][]string) {
 	f, err := os.Create(file) 
 	if err != nil {
@@ -105,10 +92,18 @@ func WriteMap(file string, m map[string][]string) {
 	defer f.Close()
 
 	w := bufio.NewWriter(f)  //创建新的 Writer 对象
+	// 写入第一行
+	firstLine := fmt.Sprintf("%d %d\n", len(m), 200)
+	_, err = w.WriteString(firstLine)
+	if err != nil {
+		fmt.Println("write file err:", err)
+		return 
+	}
+
 	for word, vec := range m {
 		vecString := strings.Join(vec, " ")
-		str := fmt.Sprintf("%s\t%s", word, vecString)
-		_, err := w.WriteString(str)
+		str := fmt.Sprintf("%s %s", word, vecString)
+		_, err = w.WriteString(str)
 		if err != nil {
 			fmt.Println("write file err:", err)
 			return 
@@ -117,12 +112,31 @@ func WriteMap(file string, m map[string][]string) {
 	w.Flush()
 }
 
-func main() {
-	filename := "/Users/liuyouyuan/Documents/sgns.weibo.char"
-	vocabFile := "./vocab.txt"
-	newEmbedFile := "./wordvec.txt"
-	pretraineEmbeds := LoadEmbedding(filename)
-	newEmbeds := GetWordEmbeds(vocabFile, pretraineEmbeds)
-	WriteMap(newEmbedFile, newEmbeds)
-	fmt.Println("Done!")
+
+var (
+	userVocabFile string
+	wordEmbeddingFile string
+	outputEmbedingFile string
+	threadNums int
+)
+
+func init(){
+	flag.StringVar(&userVocabFile, "userfile", "", "user vocab file")
+	flag.StringVar(&wordEmbeddingFile, "w2vfile", "", "source word embedding file")
+	flag.StringVar(&outputEmbedingFile, "outfile", "", "output emdbedding file")
+	flag.IntVar(&threadNums, "thread", 6, "thread nums")
+	flag.Parse()  
 }
+
+func main() {
+	start := time.Now().Second()
+	pretraineEmbeds := LoadEmbedding(wordEmbeddingFile)
+	end := time.Now().Second()
+	fmt.Printf("Load word embeddings cost %d s.\n" , (end - start))
+	newEmbeds := GetWordEmbeds(userVocabFile, pretraineEmbeds)
+	WriteMap(outputEmbedingFile, newEmbeds)
+	endall := time.Now().Second()
+	fmt.Printf("Total time %d s.\n" , (endall - start))
+}
+
+//go run buildembed.go -userfile ./vocab.txt -w2vfile /Users/liuyouyuan/Documents/sgns.weibo.char -outfile ./neww2v.txt

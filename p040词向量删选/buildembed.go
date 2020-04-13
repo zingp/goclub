@@ -38,7 +38,7 @@ func LoadEmbedding(f string) map[string][]string{
 			fmt.Println("read string err", err)
 		}
 		// fmt.Println(line)
-		if n==0 {
+		if n == 0 {
 			n += 1
 			continue
 		}
@@ -71,6 +71,11 @@ func GetWordEmbeds(f string, m map[string][]string) map[string][]string {
 		if err != nil {
 			fmt.Println("read string err", err)
 		}
+		line = strings.TrimSpace(line)
+		if len(line) == 0 {
+			continue
+		}
+
 		sliceLine := strings.Split(line, " ")
 		word := sliceLine[0]
 		// id := sliceLine[1]

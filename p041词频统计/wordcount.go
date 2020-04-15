@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 	//"runtime"
-	//"io"
+	"io"
 	"flag"
 	"bufio"
 	"strings"
@@ -58,23 +58,25 @@ func ReadFile(filePath string, strCh chan string) {
 	}
 	defer file.Close()
 
-	// reader := bufio.NewReader(file)
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		strCh <- scanner.Text()
-	}
-	// for {
-	// 	line, err := reader.ReadString('\n')
-	// 	if err == io.EOF {
-	// 		break
-	// 	}
-	// 	if err != nil {
-	// 		fmt.Println("read string err", err)
-	// 		break
-	// 	}
-
-	// 	strCh <- line
+	reader := bufio.NewReader(file)
+	// scanner := bufio.NewScanner(file)
+	// for scanner.Scan() {
+	// 	strCh <- scanner.Text()
 	// }
+	
+	for {
+		line, err := reader.ReadString('\n')
+		if err == io.EOF {
+			strCh <- line
+			break
+		}
+		if err != nil {
+			fmt.Println("read string err", err)
+			break
+		}
+
+		strCh <- line
+	}
 	close(strCh)
 	return
 }
@@ -93,6 +95,9 @@ func WordCount(strCh chan string) {
 			newLine = strings.TrimSpace(newLine)
 			sliceLine := strings.Split(newLine, " ")
 			for _, word := range sliceLine {
+				if len(word) == 0 {
+					continue
+				}
 				wordCountMap[word]++
 			}
 		}

@@ -89,13 +89,11 @@ func WordCount(strCh chan string) {
 				fmt.Println("close chan")
 				break LOOP
 			}
-			// fmt.Println(line)
 			newLine := strings.TrimRight(line, "\n")
 			newLine = strings.TrimSpace(newLine)
 			sliceLine := strings.Split(newLine, " ")
-			//fmt.Println(sliceLine, len(sliceLine))
 			for _, word := range sliceLine {
-				wordCountMap[word] += 1
+				wordCountMap[word]++
 			}
 		}
 	}
@@ -151,7 +149,7 @@ func main() {
 	
 	WritePairListToFile(outFile, sortSlice)
 	elapsed := time.Since(start)
-	fmt.Printf("Cost time %d s.\n", elapsed/1e3)
+	fmt.Printf("Cost time %d s.\n", elapsed/1e6)
 }
 
 //CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o wordcount wordcount.go

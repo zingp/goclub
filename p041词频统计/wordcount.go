@@ -138,7 +138,7 @@ func init(){
 }
 
 func main() {
-	start := time.Now().Second()
+	start := time.Now()
 	strCh := make(chan string, 100)
 
 	wg.Add(1)
@@ -150,8 +150,8 @@ func main() {
 	sortSlice := sortMapByValue(wordCountMap)
 	
 	WritePairListToFile(outFile, sortSlice)
-	end := time.Now().Second()
-	fmt.Printf("Cost time %d s.\n", end - start)
+	elapsed := time.Since(start)
+	fmt.Printf("Cost time %d s.\n", elapsed/1e3)
 }
 
 //CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o wordcount wordcount.go

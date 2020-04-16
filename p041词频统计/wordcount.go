@@ -1,22 +1,25 @@
 package main
 
 import (
-	"os"
-	"fmt"
-	"time"
-	"io"
-	"flag"
 	"bufio"
+	"flag"
+	"fmt"
+	"io"
+	"os"
+	"sort"
 	"strings"
 	"sync"
+	"time"
 )
 
 var (
 	wordCountMap = make(map[string]int, 0)
-	wg = sync.WaitGroup{}
-	wordSyncMap sync.Map
-)
+	wg           = sync.WaitGroup{}
 
+	inFile  string
+	outFile string
+	rSort   bool
+)
 
 func ReadFile(filePath string, strCh chan string) {
 	defer wg.Done()
@@ -24,7 +27,7 @@ func ReadFile(filePath string, strCh chan string) {
 	file, err := os.Open(filePath)
 	if err != nil {
 		fmt.Println("open file err:", err)
-		return 
+		return
 	}
 	defer file.Close()
 
@@ -50,9 +53,10 @@ func ReadFile(filePath string, strCh chan string) {
 func WordCount(strCh chan string) {
 	defer wg.Done()
 
-	LOOP: for {
+LOOP:
+	for {
 		select {
-		case line, ok :=<- strCh:
+		case line, ok := <-strCh:
 			if !ok {
 				break LOOP
 			}
@@ -70,53 +74,21 @@ func WordCount(strCh chan string) {
 	return
 }
 
-func WordSyncCount(strCh chan string) {
-	defer wg.Done()
-
-	for {
-		select {
-		case line, ok :=<- strCh:
-			if !ok {
-				return 
-			}
-			newLine := strings.TrimRight(line, "\n")
-			newLine = strings.TrimSpace(newLine)
-			sliceLine := strings.Split(newLine, " ")
-			for _, word := range sliceLine {
-				if len(word) == 0 {
-					continue
-				}
-				// 添加
-				v, ok := wordSyncMap.Load(word)
-				if ok {
-					if value, ok := v.(int); ok {
-						wordSyncMap.Store(word, value + 1)
-					}
-				} else {
-					wordSyncMap.Store(word, 1)
-				}
-			}
-		}
-	}
-}
-
-
 func WritePairListToFile(filePath string, p PairList) {
-	f, err := os.Create(filePath) 
+	f, err := os.Create(filePath)
 	if err != nil {
 		fmt.Println("open file err:", err)
-		return 
+		return
 	}
 	defer f.Close()
 
-	//创建新的 Writer 对象
-	w := bufio.NewWriter(f)  
+	w := bufio.NewWriter(f)
 	for _, pair := range p {
 		line := fmt.Sprintf("%s %d\n", pair.Key, pair.Value)
 		_, err = w.WriteString(line)
 		if err != nil {
 			fmt.Println("write file err:", err)
-			return 
+			return
 		}
 	}
 	w.Flush()
@@ -125,22 +97,16 @@ func WritePairListToFile(filePath string, p PairList) {
 func durationTime(start int64, t string) int64 {
 	end := time.Now().UnixNano()
 	if t == "ms" {
-		return (end - start)/int64(time.Millisecond)
+		return (end - start) / int64(time.Millisecond)
 	}
-	return (end - start)/int64(time.Second)
+	return (end - start) / int64(time.Second)
 }
 
-var (
-	inFile string
-	outFile string
-	threads int
-)
-	
-func init(){
+func init() {
 	flag.StringVar(&inFile, "i", "", "input file")
 	flag.StringVar(&outFile, "o", "", "output file")
-	flag.IntVar(&threads, "t", 4, "thread nums")
-	flag.Parse()  
+	flag.BoolVar(&rSort, "r", false, "true is reverse")
+	flag.Parse()
 }
 
 func main() {
@@ -150,20 +116,19 @@ func main() {
 	wg.Add(1)
 	go ReadFile(inFile, strCh)
 
-	for i:=0; i<=threads; i++ {
-		wg.Add(1)
-		// go WordCount(strCh)
-		go WordSyncCount(strCh)
-	}
-	//wg.Add(1)
-	// go WordCount(strCh)
+	wg.Add(1)
+	go WordCount(strCh)
 
 	wg.Wait()
 
-	//sortSlice := sortMapByValue(wordCountMap)
-	sortSlice := sortSyncMapByValue(wordSyncMap)
-	WritePairListToFile(outFile, sortSlice)
-	
+	pairSlice := mapToSlice(wordCountMap)
+	if rSort {
+		sort.Sort(sort.Reverse(pairSlice))
+	} else {
+		sort.Sort(pairSlice)
+	}
+
+	WritePairListToFile(outFile, pairSlice)
 	fmt.Printf("Cost time %d s.\n", durationTime(start, "s"))
 }
 

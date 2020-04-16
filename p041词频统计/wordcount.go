@@ -10,43 +10,9 @@ import (
 	"bufio"
 	"strings"
 	"sync"
-	"sort"
 )
 var wordCountMap = make(map[string]int, 0)
 var wg = sync.WaitGroup{}
-
-/* Map 排序 */
-//要对golang map按照value进行排序，思路是直接不用map。
-//用struct存放key和value，实现sort接口，就可以调用sort.Sort进行排序。
-// A data structure to hold a key/value pair.
-type Pair struct {
-    Key   string
-    Value int
-}
-
-// A slice of Pairs that implements sort.Interface to sort by Value.
-type PairList []Pair
-
-func (p PairList) Swap(i, j int)      { p[i], p[j] = p[j], p[i] }
-
-func (p PairList) Len() int           { return len(p) }
-
-func (p PairList) Less(i, j int) bool { return p[i].Value < p[j].Value }
-
-// A function to turn a map into a PairList, then sort and return it.
-func sortMapByValue(m map[string]int) PairList {
-    p := make(PairList, len(m))
-    i := 0
-    for k, v := range m {
-		p[i] = Pair{k, v}
-		i += 1
-	}
-	// 降序
-	sort.Sort(sort.Reverse(p))
-	// sort.Sort(p)  // 升序
-    return p
-}
-
 
 func ReadFile(filePath string, strCh chan string) {
 	defer wg.Done()
@@ -59,11 +25,6 @@ func ReadFile(filePath string, strCh chan string) {
 	defer file.Close()
 
 	reader := bufio.NewReader(file)
-	// scanner := bufio.NewScanner(file)
-	// for scanner.Scan() {
-	// 	strCh <- scanner.Text()
-	// }
-	
 	for {
 		line, err := reader.ReadString('\n')
 		if err == io.EOF {
@@ -78,6 +39,7 @@ func ReadFile(filePath string, strCh chan string) {
 		strCh <- line
 	}
 	close(strCh)
+
 	return
 }
 
@@ -88,7 +50,6 @@ func WordCount(strCh chan string) {
 		select {
 		case line, ok :=<- strCh:
 			if !ok {
-				fmt.Println("close chan")
 				break LOOP
 			}
 			newLine := strings.TrimRight(line, "\n")
@@ -127,12 +88,20 @@ func WritePairListToFile(filePath string, p PairList) {
 	w.Flush()
 }
 
+func durationTime(start int64, t string) int64 {
+	end := time.Now().UnixNano()
+	if t == "ms" {
+		return (end - start)/int64(time.Millisecond)
+	}
+	return (end - start)/int64(time.Second)
+}
 
 var (
 	inFile string
 	outFile string
 	threads int
 )
+	
 func init(){
 	flag.StringVar(&inFile, "i", "", "input file")
 	flag.StringVar(&outFile, "o", "", "output file")
@@ -141,7 +110,7 @@ func init(){
 }
 
 func main() {
-	start := time.Now()
+	start := time.Now().UnixNano()
 	strCh := make(chan string, 100)
 
 	wg.Add(1)
@@ -153,8 +122,8 @@ func main() {
 	sortSlice := sortMapByValue(wordCountMap)
 	
 	WritePairListToFile(outFile, sortSlice)
-	elapsed := time.Since(start)
-	fmt.Printf("Cost time %d s.\n", elapsed/1e6)
+	
+	fmt.Printf("Cost time %d s.\n", durationTime(start, "s"))
 }
 
 //CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o wordcount wordcount.go

@@ -9,6 +9,7 @@ import (
 	"strings"
 	"sync"
 	"time"
+	"path"
 
 	gojieba "github.com/yanyiwu/gojieba"
 )
@@ -96,22 +97,31 @@ var (
 	wg      = sync.WaitGroup{}
 	inFile  string
 	outFile string
+	dictPath string
 )
 
 func init() {
 	flag.StringVar(&inFile, "i", "", "input file")
 	flag.StringVar(&outFile, "o", "", "output file")
-	//flag.StringVar(&cutMode, "m", "cut", "cut mode: cut, search")
+	flag.StringVar(&dictPath, "d", "", "dict path")
 	flag.Parse()
 }
 
 func main() {
+
+	dictDir := path.Join(dictPath, "dict")
+	jiebaPath := path.Join(dictDir, "jieba.dict.utf8")
+	hmmPath := path.Join(dictDir, "hmm_model.utf8")
+	userPath := path.Join(dictDir, "user.dict.utf8")
+	idfPath := path.Join(dictDir, "idf.utf8")
+	stopPath := path.Join(dictDir, "stop_words.utf8")
+	jieba := gojieba.NewJieba(jiebaPath, hmmPath, userPath, idfPath, stopPath)
 	start := time.Now().UnixNano()
 
 	strCh := make(chan string, 10)
 	cutCh := make(chan string, 10)
 
-	jieba := gojieba.NewJieba()
+	//jieba := gojieba.NewJieba()
 	defer jieba.Free()
 
 	wg.Add(1)

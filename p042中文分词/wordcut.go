@@ -42,7 +42,7 @@ func ReadFile(filePath string, strCh chan string) {
 	return
 }
 
-// 这里不能起多个
+// 这里不能起多个goroutine
 func WordCut(strCh chan string, cutCh chan string, m bool, fc func(string, bool) []string) {
 	defer wg.Done()
 
@@ -94,10 +94,10 @@ func durationTime(start int64, t string) int64 {
 }
 
 var (
-	wg      = sync.WaitGroup{}
 	inFile  string
 	outFile string
 	dictPath string
+	wg      = sync.WaitGroup{}
 )
 
 func init() {
@@ -108,21 +108,20 @@ func init() {
 }
 
 func main() {
-
+	// 解决静态编译后，运行时找不到jieba.dict.utf8等文件的问题
 	dictDir := path.Join(dictPath, "dict")
 	jiebaPath := path.Join(dictDir, "jieba.dict.utf8")
 	hmmPath := path.Join(dictDir, "hmm_model.utf8")
 	userPath := path.Join(dictDir, "user.dict.utf8")
 	idfPath := path.Join(dictDir, "idf.utf8")
 	stopPath := path.Join(dictDir, "stop_words.utf8")
-	jieba := gojieba.NewJieba(jiebaPath, hmmPath, userPath, idfPath, stopPath)
-	start := time.Now().UnixNano()
 
+	jieba := gojieba.NewJieba(jiebaPath, hmmPath, userPath, idfPath, stopPath)
+	defer jieba.Free()
+
+	start := time.Now().UnixNano()
 	strCh := make(chan string, 10)
 	cutCh := make(chan string, 10)
-
-	//jieba := gojieba.NewJieba()
-	defer jieba.Free()
 
 	wg.Add(1)
 	go ReadFile(inFile, strCh)
@@ -137,3 +136,8 @@ func main() {
 
 	fmt.Printf("Cost time %d s.\n", durationTime(start, "s"))
 }
+
+/*
+静态编译
+go build -o wcut -ldflags '-linkmode "external" -extldflags "-static"' wordcut.go
+*/

@@ -2,6 +2,7 @@ package main
 
 import (
 	"sort"
+	"sync"
 )
 
 /* Map 排序 */
@@ -30,6 +31,22 @@ func sortMapByValue(m map[string]int) PairList {
 		p[i] = Pair{k, v}
 		i += 1
 	}
+	// 降序
+	sort.Sort(sort.Reverse(p))
+	// sort.Sort(p)  // 升序
+    return p
+}
+
+func sortSyncMapByValue(m sync.Map) PairList {
+    p := make(PairList, 0)
+    m.Range(func(k, v interface{}) bool {
+		key, ok1 := k.(string)
+		value, ok2 := v.(int)
+		if ok1 && ok2 {
+			p = append(p, Pair{key, value}) 
+		}
+		return true
+	})
 	// 降序
 	sort.Sort(sort.Reverse(p))
 	// sort.Sort(p)  // 升序

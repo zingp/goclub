@@ -4,15 +4,19 @@ import (
 	"os"
 	"fmt"
 	"time"
-	//"runtime"
 	"io"
 	"flag"
 	"bufio"
 	"strings"
 	"sync"
 )
-var wordCountMap = make(map[string]int, 0)
-var wg = sync.WaitGroup{}
+
+var (
+	wordCountMap = make(map[string]int, 0)
+	wg = sync.WaitGroup{}
+	wordSyncMap sync.Map
+)
+
 
 func ReadFile(filePath string, strCh chan string) {
 	defer wg.Done()
@@ -66,6 +70,36 @@ func WordCount(strCh chan string) {
 	return
 }
 
+func WordSyncCount(strCh chan string) {
+	defer wg.Done()
+
+	for {
+		select {
+		case line, ok :=<- strCh:
+			if !ok {
+				return 
+			}
+			newLine := strings.TrimRight(line, "\n")
+			newLine = strings.TrimSpace(newLine)
+			sliceLine := strings.Split(newLine, " ")
+			for _, word := range sliceLine {
+				if len(word) == 0 {
+					continue
+				}
+				// 添加
+				v, ok := wordSyncMap.Load(word)
+				if ok {
+					if value, ok := v.(int); ok {
+						wordSyncMap.Store(word, value + 1)
+					}
+				} else {
+					wordSyncMap.Store(word, 1)
+				}
+			}
+		}
+	}
+}
+
 
 func WritePairListToFile(filePath string, p PairList) {
 	f, err := os.Create(filePath) 
@@ -115,12 +149,19 @@ func main() {
 
 	wg.Add(1)
 	go ReadFile(inFile, strCh)
-	wg.Add(1)
-	go WordCount(strCh)
+
+	for i:=0; i<=threads; i++ {
+		wg.Add(1)
+		// go WordCount(strCh)
+		go WordSyncCount(strCh)
+	}
+	//wg.Add(1)
+	// go WordCount(strCh)
+
 	wg.Wait()
 
-	sortSlice := sortMapByValue(wordCountMap)
-	
+	//sortSlice := sortMapByValue(wordCountMap)
+	sortSlice := sortSyncMapByValue(wordSyncMap)
 	WritePairListToFile(outFile, sortSlice)
 	
 	fmt.Printf("Cost time %d s.\n", durationTime(start, "s"))

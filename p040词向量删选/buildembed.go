@@ -66,6 +66,12 @@ func GetWordEmbeds(f string, m map[string][]string) map[string][]string {
 	for {
 		line, err := reader.ReadString('\n')
 		if err == io.EOF {
+			// 最后一行没有"\n"的情况
+			sliceLine := strings.Split(line, " ")
+			word := sliceLine[0]
+			if vec, ok := m[word]; ok {
+				embedings[word] = vec
+			} 
 			break
 		}
 		if err != nil {

@@ -6,10 +6,10 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"path"
 	"strings"
 	"sync"
 	"time"
-	"path"
 
 	gojieba "github.com/yanyiwu/gojieba"
 )
@@ -94,10 +94,10 @@ func durationTime(start int64, t string) int64 {
 }
 
 var (
-	inFile  string
-	outFile string
+	inFile   string
+	outFile  string
 	dictPath string
-	wg      = sync.WaitGroup{}
+	wg       = sync.WaitGroup{}
 )
 
 func init() {

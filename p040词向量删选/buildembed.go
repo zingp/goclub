@@ -8,17 +8,17 @@ PAD 的词向量如何表示？
 package main
 
 import (
-	"os"
+	"bufio"
+	"flag"
 	"fmt"
 	"io"
-	"bufio"
+	"os"
 	"strings"
-	"flag"
 	"time"
 )
 
 // 加载未筛减word embedding
-func LoadEmbedding(f string) map[string][]string{
+func LoadEmbedding(f string) map[string][]string {
 	embedings := map[string][]string{}
 	file, err := os.Open(f)
 	if err != nil {
@@ -32,10 +32,18 @@ func LoadEmbedding(f string) map[string][]string{
 	for {
 		line, err := reader.ReadString('\n')
 		if err == io.EOF {
+			if len(line) != 0 {
+				sliceLine := strings.Split(line, " ")
+				key := sliceLine[0]
+				value := sliceLine[1:]
+				embedings[key] = value
+				break
+			}
 			break
 		}
 		if err != nil {
 			fmt.Println("read string err", err)
+			break
 		}
 		// fmt.Println(line)
 		if n == 0 {
@@ -50,8 +58,7 @@ func LoadEmbedding(f string) map[string][]string{
 	return embedings
 }
 
-
-// 传入用户词表文件，得到用户词表的wordembedings　
+// 传入用户词表文件，得到用户词表的wordembedings
 func GetWordEmbeds(f string, m map[string][]string) map[string][]string {
 	embedings := map[string][]string{}
 
@@ -71,7 +78,7 @@ func GetWordEmbeds(f string, m map[string][]string) map[string][]string {
 			word := sliceLine[0]
 			if vec, ok := m[word]; ok {
 				embedings[word] = vec
-			} 
+			}
 			break
 		}
 		if err != nil {
@@ -88,27 +95,27 @@ func GetWordEmbeds(f string, m map[string][]string) map[string][]string {
 
 		if vec, ok := m[word]; ok {
 			embedings[word] = vec
-		} 
-	}	
+		}
+	}
 	return embedings
 }
 
-
 func WriteMap(file string, m map[string][]string) {
-	f, err := os.Create(file) 
+	f, err := os.Create(file)
 	if err != nil {
 		fmt.Println("open file err:", err)
-		return 
+		return
 	}
 	defer f.Close()
 
-	w := bufio.NewWriter(f)  //创建新的 Writer 对象
+	w := bufio.NewWriter(f) //创建新的 Writer 对象
+	defer w.Flush()
 	// 写入第一行
 	firstLine := fmt.Sprintf("%d %d\n", len(m), 200)
 	_, err = w.WriteString(firstLine)
 	if err != nil {
 		fmt.Println("write file err:", err)
-		return 
+		return
 	}
 
 	for word, vec := range m {
@@ -117,37 +124,36 @@ func WriteMap(file string, m map[string][]string) {
 		_, err = w.WriteString(str)
 		if err != nil {
 			fmt.Println("write file err:", err)
-			return 
+			break
 		}
 	}
-	w.Flush()
+	return
 }
 
-
 var (
-	userVocabFile string
-	wordEmbeddingFile string
+	userVocabFile      string
+	wordEmbeddingFile  string
 	outputEmbedingFile string
-	threadNums int
+	threadNums         int
 )
 
-func init(){
+func init() {
 	flag.StringVar(&userVocabFile, "userfile", "", "user vocab file")
 	flag.StringVar(&wordEmbeddingFile, "w2vfile", "", "source word embedding file")
 	flag.StringVar(&outputEmbedingFile, "outfile", "", "output emdbedding file")
 	flag.IntVar(&threadNums, "thread", 6, "thread nums")
-	flag.Parse()  
+	flag.Parse()
 }
 
 func main() {
 	start := time.Now().Second()
 	pretraineEmbeds := LoadEmbedding(wordEmbeddingFile)
 	end := time.Now().Second()
-	fmt.Printf("Load word embeddings cost %d s.\n" , (end - start))
+	fmt.Printf("Load word embeddings cost %d s.\n", (end - start))
 	newEmbeds := GetWordEmbeds(userVocabFile, pretraineEmbeds)
 	WriteMap(outputEmbedingFile, newEmbeds)
 	endall := time.Now().Second()
-	fmt.Printf("Total time %d s.\n" , (endall - start))
+	fmt.Printf("Total time %d s.\n", (endall - start))
 }
 
 //go run buildembed.go -userfile ./vocab.txt -w2vfile /Users/liuyouyuan/Documents/sgns.weibo.char -outfile ./neww2v.txt

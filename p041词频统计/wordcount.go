@@ -16,9 +16,9 @@ var (
 	wordCountMap = make(map[string]int, 0)
 	wg           = sync.WaitGroup{}
 
+	a, h    bool
 	inFile  string
 	outFile string
-	a, h   bool
 )
 
 func ReadFile(filePath string, strCh chan string) {
@@ -46,7 +46,6 @@ func ReadFile(filePath string, strCh chan string) {
 		strCh <- line
 	}
 	close(strCh)
-
 	return
 }
 
@@ -103,21 +102,21 @@ func durationTime(start int64, t string) int64 {
 }
 
 func init() {
-	flag.StringVar(&inFile, "i", "", "Input file")
-	flag.StringVar(&outFile, "o", "./output.txt", "Output file")
 	flag.BoolVar(&a, "a", false, "Ascending order by word frequency")
 	flag.BoolVar(&h, "h", false, "Prints help information")
+	flag.StringVar(&inFile, "i", "", "Input file")
+	flag.StringVar(&outFile, "o", "./output.txt", "Output file")
 	flag.Usage = usage
 	flag.Parse()
 }
 
 func usage() {
-    fmt.Fprintf(os.Stderr, `wordcount version: wordcount/1.1.0
+	fmt.Fprintf(os.Stderr, `wordcount version: wordcount/1.1.0
 Usage: wordcount [-ha] [-i filename] [-o filename]
 
 Options:
 `)
-    flag.PrintDefaults()
+	flag.PrintDefaults()
 }
 
 func main() {
@@ -132,7 +131,7 @@ func main() {
 		flag.Usage()
 		return
 	}
-	
+
 	start := time.Now().UnixNano()
 	strCh := make(chan string, 100)
 

@@ -18,7 +18,7 @@ var (
 
 	inFile  string
 	outFile string
-	rSort   bool
+	a, h   bool
 )
 
 func ReadFile(filePath string, strCh chan string) {
@@ -103,13 +103,36 @@ func durationTime(start int64, t string) int64 {
 }
 
 func init() {
-	flag.StringVar(&inFile, "i", "", "input file")
-	flag.StringVar(&outFile, "o", "", "output file")
-	flag.BoolVar(&rSort, "r", false, "true is reverse")
+	flag.StringVar(&inFile, "i", "", "Input file")
+	flag.StringVar(&outFile, "o", "./output.txt", "Output file")
+	flag.BoolVar(&a, "a", false, "Ascending order by word frequency")
+	flag.BoolVar(&h, "h", false, "Prints help information")
+	flag.Usage = usage
 	flag.Parse()
 }
 
+func usage() {
+    fmt.Fprintf(os.Stderr, `wordcount version: wordcount/1.1.0
+Usage: wordcount [-ha] [-i filename] [-o filename]
+
+Options:
+`)
+    flag.PrintDefaults()
+}
+
 func main() {
+
+	if h {
+		flag.Usage()
+		return
+	}
+
+	if inFile == "" {
+		fmt.Println("Parameter -i is required.")
+		flag.Usage()
+		return
+	}
+	
 	start := time.Now().UnixNano()
 	strCh := make(chan string, 100)
 
@@ -122,14 +145,15 @@ func main() {
 	wg.Wait()
 
 	pairSlice := mapToSlice(wordCountMap)
-	if rSort {
-		sort.Sort(sort.Reverse(pairSlice))
-	} else {
+	if a {
 		sort.Sort(pairSlice)
+	} else {
+		sort.Sort(sort.Reverse(pairSlice))
 	}
 
 	WritePairListToFile(outFile, pairSlice)
-	fmt.Printf("Cost time %d s.\n", durationTime(start, "s"))
+	fmt.Printf("Output to file: %s.\n", outFile)
+	fmt.Printf("Duration: %d s.\n", durationTime(start, "s"))
 }
 
-//CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o wordcount wordcount.go
+//CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o wordcount *.go

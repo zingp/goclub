@@ -1,10 +1,3 @@
-/*
-[1] 读取词表文件
-[2] 读取embeddings文件
-[3] 过滤
-UNK 的词向量表示？
-PAD 的词向量如何表示？
-*/
 package main
 
 import (

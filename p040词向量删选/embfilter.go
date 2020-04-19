@@ -34,16 +34,16 @@ func LoadVocab(path string) map[string]bool {
 			break
 		}
 		if err == io.EOF {
-			lineSlice := strings.Split(line, " ")
-			if len(lineSlice) != 0 {
-				word := lineSlice[0]
+			idx := strings.Index(line, " ")
+			if idx > 0 {
+				word := line[:idx]
 				vocab[word] = true
 			}
 			break
 		}
-		lineSlice := strings.Split(line, " ")
-		if len(lineSlice) != 0 {
-			word := lineSlice[0]
+		idx := strings.Index(line, " ")
+		if idx > 0 {
+			word := line[:idx]
 			vocab[word] = true
 		}
 	}
@@ -91,11 +91,11 @@ func FilterAndWrite(path string, m map[string]bool, strCh chan string) {
 	defer w.Flush()
 
 	for line := range strCh {
-		lineSlice := strings.Split(line, " ")
-		if len(lineSlice) == 0 {
+		idx := strings.Index(line, " ")
+		if idx < 0 {
 			continue
 		}
-		word := lineSlice[0]
+		word := line[:idx]
 		if _, ok := m[word]; ok {
 			_, err = w.WriteString(line)
 			if err != nil {
@@ -115,7 +115,17 @@ func durationTime(start int64, t string) int64 {
 	return (end - start) / int64(time.Second)
 }
 
+func usage() {
+	fmt.Fprintf(os.Stderr, `embfilter version: embfilter/1.1.0
+Usage: embfilter [-h] [-v filename] [-i filename] [-o filename]
+
+Options:
+`)
+	flag.PrintDefaults()
+}
+
 var (
+	h          bool
 	vocabFile  string
 	inEmbFile  string
 	outEmbFile string
@@ -123,13 +133,26 @@ var (
 )
 
 func init() {
-	flag.StringVar(&vocabFile, "v", "", "user vocab file")
-	flag.StringVar(&inEmbFile, "i", "", "source word embedding file")
-	flag.StringVar(&outEmbFile, "o", "./outemb.txt", "output emdbedding file")
+	flag.BoolVar(&h, "h", false, "Prints help information")
+	flag.StringVar(&vocabFile, "v", "", "Vocab file")
+	flag.StringVar(&inEmbFile, "i", "", "Source word embedding file")
+	flag.StringVar(&outEmbFile, "o", "./outemb.txt", "Output emdbedding file")
+	flag.Usage = usage
 	flag.Parse()
 }
 
 func main() {
+	if h {
+		flag.Usage()
+		return
+	}
+
+	if vocabFile == "" || inEmbFile == "" {
+		fmt.Println("Parameter -v -i  is required.")
+		flag.Usage()
+		return
+	}
+
 	strCh := make(chan string, 100)
 	start := time.Now().UnixNano()
 	vocabMap := LoadVocab(vocabFile)
@@ -142,8 +165,8 @@ func main() {
 	wg.Wait()
 
 	t := durationTime(start, "s")
-	fmt.Printf("Write filter embedding to file: %s\n", outEmbFile)
+	fmt.Printf("Write to %s\n", outEmbFile)
 	fmt.Printf("Duration %d s.\n", t)
 }
 
-//CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o embfilter buildembed.go
+//CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o embfilter embfilter.go

@@ -21,4 +21,6 @@ func main() {
 	fmt.Println(r3)
 	r4 := strings.LastIndex(str, "c")
 	fmt.Println(r4)
+
+	fmt.Println(strings.Split("\n", " "))
 }

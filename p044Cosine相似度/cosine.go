@@ -71,7 +71,7 @@ func main() {
 	//fmt.Println(v2)
 
 	start := time.Now().UnixNano()
-	n := 1000000
+	n := 100_000
 	socreSlice := make([]float64, n)
 	for i := 0; i < n; i++ {
 		socreSlice[i] = Cosine(v1, v2)

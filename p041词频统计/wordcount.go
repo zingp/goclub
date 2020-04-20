@@ -82,15 +82,16 @@ func WritePairListToFile(filePath string, p PairList) {
 	defer f.Close()
 
 	w := bufio.NewWriter(f)
+	defer w.Flush()
 	for _, pair := range p {
 		line := fmt.Sprintf("%s %d\n", pair.Key, pair.Value)
 		_, err = w.WriteString(line)
 		if err != nil {
 			fmt.Println("write file err:", err)
-			return
+			continue
 		}
 	}
-	w.Flush()
+	return
 }
 
 func durationTime(start int64, t string) int64 {
@@ -151,7 +152,7 @@ func main() {
 	}
 
 	WritePairListToFile(outFile, pairSlice)
-	fmt.Printf("Output to file: %s.\n", outFile)
+	fmt.Printf("Output to file: %s\n", outFile)
 	fmt.Printf("Duration: %d s.\n", durationTime(start, "s"))
 }
 

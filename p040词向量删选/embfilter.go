@@ -11,6 +11,17 @@ import (
 	"time"
 )
 
+
+var (
+	h          bool
+	vocabFile  string
+	inEmbFile  string
+	outEmbFile string
+	retSlice   = []string{}
+	wg         = sync.WaitGroup{}
+)
+
+
 func LoadVocab(path string) map[string]bool {
 	vocab := map[string]bool{}
 	fd, err := os.Open(path)
@@ -70,6 +81,55 @@ func LoadInEmbeds(path string, strCh chan string) {
 	return
 }
 
+func Filter(m map[string]bool, strCh chan string) {
+	defer wg.Done()
+
+	retSlice = append(retSlice, "")
+
+	count := 0
+	dim := 0
+	for line := range strCh {
+		idx := strings.Index(line, " ")
+		if idx < 0 {
+			continue
+		}
+		word := line[:idx]
+		if _, ok := m[word]; ok {
+			retSlice = append(retSlice, line)
+			count += 1
+		}
+	}
+
+	if count > 1 {
+		lineSlice := strings.Split(retSlice[1], " ")
+		dim = len(lineSlice[1:])
+	}
+
+	retSlice[0] = fmt.Sprintf("%d %d\n", count, dim)
+}
+
+func WriteFile(s []string, path string) {
+	f, err := os.Create(path)
+	if err != nil {
+		fmt.Printf("create  %s err: %v", path, err)
+		return
+	}
+	defer f.Close()
+
+	w := bufio.NewWriter(f)
+	defer w.Flush()
+
+	for _, line := range s {
+		_, err = w.WriteString(line)
+		if err != nil {
+			fmt.Println("write file err:", err)
+			continue
+		}
+	}
+	return
+}
+
+// 暂时弃用
 func FilterAndWrite(path string, m map[string]bool, strCh chan string) {
 	defer wg.Done()
 
@@ -117,13 +177,6 @@ Options:
 	flag.PrintDefaults()
 }
 
-var (
-	h          bool
-	vocabFile  string
-	inEmbFile  string
-	outEmbFile string
-	wg         = sync.WaitGroup{}
-)
 
 func init() {
 	flag.BoolVar(&h, "h", false, "Prints help information")
@@ -153,9 +206,10 @@ func main() {
 	go LoadInEmbeds(inEmbFile, strCh)
 
 	wg.Add(1)
-	go FilterAndWrite(outEmbFile, vocabMap, strCh)
-
+	go Filter(vocabMap, strCh)
+	
 	wg.Wait()
+	WriteFile(retSlice, outEmbFile)
 
 	t := durationTime(start, "s")
 	fmt.Printf("Write to %s\n", outEmbFile)
